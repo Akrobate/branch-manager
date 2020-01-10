@@ -68,7 +68,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
 .md-app {
@@ -77,11 +76,6 @@ export default {
 
 .md-app-content {
   height: auto;
-}
-
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
 }
 
 </style>
