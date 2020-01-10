@@ -71,7 +71,11 @@ export default {
 <style lang="scss" scoped>
 
 .md-app {
-  max-height: 100vh;
+  height: 100vh;
+}
+
+.md-app-content {
+  height: auto;
 }
 
 .md-drawer {
