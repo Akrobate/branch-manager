@@ -8,8 +8,8 @@ import 'vue-material/dist/vue-material.min.css'
 // import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
-import App from './App'
 import router from './router'
+import App from './App'
 
 Vue.use(VueMaterial)
 
