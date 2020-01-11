@@ -1,14 +1,13 @@
 <template>
-<!--
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed">
-      <app-drawer slot='md-app-drawer' md-permanent="full"></app-drawer>
+      <app-drawer slot='md-app-drawer'></app-drawer>
       <app-toolbar slot='md-app-toolbar'></app-toolbar>
-      <router-view slot='md-app-content'></router-view>
+      <md-app-content>
+        <router-view></router-view>
+      </md-app-content>
     </md-app>
   </div>
--->
-      <router-view></router-view>
 </template>
 
 <script>
@@ -26,5 +25,13 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+.md-app {
+  height: 100vh;
+}
+
+.md-app-content {
+  height: auto;
+}
+
 </style>
