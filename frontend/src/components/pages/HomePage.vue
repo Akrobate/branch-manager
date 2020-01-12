@@ -25,31 +25,15 @@
 <script>
 
 export default {
-  name: 'HelloWorld',
-  components: {
-  },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+    name: 'HomePage',
+    components: {
+    },
+    data() {
+        return {}
+    },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-
-.md-app {
-  height: 100vh;
-}
-
-.md-app-content {
-  height: auto;
-}
-
-.md-drawer {
-  width: 230px;
-  max-width: calc(100vw - 125px);
-}
-
 </style>

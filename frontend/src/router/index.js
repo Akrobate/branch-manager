@@ -6,11 +6,11 @@ import HomePage from '@/components/pages/HomePage'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HomePage',
-      component: HomePage
-    }
-  ]
+    routes: [
+        {
+            path: '/',
+            name: 'HomePage',
+            component: HomePage,
+        },
+    ],
 })

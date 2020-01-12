@@ -1,28 +1,38 @@
 <template>
-    <md-app-drawer md-permanent="full">
+    <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
         <md-toolbar class="md-transparent" md-elevation="0">
             Navigation
+            <div class="md-toolbar-section-end">
+                <md-button class="md-icon-button md-dense" @click="toggleMenu">
+                <md-icon>keyboard_arrow_left</md-icon>
+                </md-button>
+          </div>
         </md-toolbar>
 
         <md-list>
-            <md-list-item>
-            <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Inbox</span>
+            <md-list-item @click="toggleMenu" v-if="!menuVisible">
+                <md-icon>menu</md-icon>
+                <span class="md-list-item-text">Menu</span>
             </md-list-item>
 
             <md-list-item>
-            <md-icon>send</md-icon>
-            <span class="md-list-item-text">Sent Mail</span>
+                <md-icon>home</md-icon>
+                <span class="md-list-item-text">Home</span>
             </md-list-item>
 
             <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
+                <md-icon>assignment</md-icon>
+                <span class="md-list-item-text">Report</span>
             </md-list-item>
 
             <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
+                <md-icon>settings_applications</md-icon>
+                <span class="md-list-item-text">Settings</span>
+            </md-list-item>
+
+            <md-list-item>
+                <md-icon>help</md-icon>
+                <span class="md-list-item-text">About</span>
             </md-list-item>
         </md-list>
     </md-app-drawer>
@@ -30,15 +40,21 @@
 
 <script>
 export default {
-  name: 'AppDrawer',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  mounted () {
-    console.log('AppDrawer')
-  }
+    name: 'AppDrawer',
+    data() {
+        return {
+            msg: 'Welcome to Your Vue.js App',
+            menuVisible: false,
+        }
+    },
+    mounted() {
+        console.log('AppDrawer')
+    },
+    methods: {
+        toggleMenu() {
+            this.menuVisible = !this.menuVisible
+        },
+    },
 }
 </script>
 
