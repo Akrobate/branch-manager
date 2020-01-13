@@ -16,11 +16,11 @@ import AppDrawer from '@/components/AppDrawer'
 import AppToolbar from '@/components/AppToolbar'
 
 export default {
-  name: 'App',
-  components: {
-    AppDrawer,
-    AppToolbar
-  }
+    name: 'App',
+    components: {
+        AppDrawer,
+        AppToolbar,
+    },
 }
 
 </script>
