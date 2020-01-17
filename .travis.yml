@@ -8,6 +8,9 @@ install:
 script:
   - cd backend; npm test
 
+after_success:
+  - cd backend; npm run coveralls
+
 branches:
   only:
   - master
