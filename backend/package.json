@@ -5,14 +5,18 @@
   "main": "src/app.js",
   "scripts": {
     "test": "mocha --recursive",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "cover": "nyc npm test",
+    "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",
+    "coveralls": "^3.0.9",
     "eslint": "^6.8.0",
     "mocha": "^7.0.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "sinon": "^8.0.4",
