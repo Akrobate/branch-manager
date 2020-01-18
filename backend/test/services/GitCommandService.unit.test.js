@@ -22,7 +22,7 @@ describe('GitCommandService unit test', () => {
 
     it('getInstance', () => {
         expect(git_command_service).to.be.an.instanceOf(GitCommandService);
-        expect(git_command_service).to.equal(GitCommandService.getInstance())
+        expect(git_command_service).to.equal(GitCommandService.getInstance());
     });
 
     it('GitClone', () => {
