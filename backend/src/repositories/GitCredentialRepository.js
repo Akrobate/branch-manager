@@ -1,7 +1,7 @@
 'use strict';
 
 const yaml = require('yamljs');
-const fs = require('fs');
+const fsPromised = require('fs').promise;
 
 class GitCredentialRepository {
 
@@ -35,12 +35,11 @@ class GitCredentialRepository {
      * @return {Object}
      */
     getCredentials() {
-        return new Promise(
-            (resolve) => fs.readFile(
+        return fsPromised
+            .readFile(
                 this.getCurrentFilenamePath(),
-                'utf8',
-                resolve
-            ))
+                'utf8'
+            )
             .then((data) => yaml.parse(data));
     }
 
@@ -50,16 +49,9 @@ class GitCredentialRepository {
      */
     saveCredentials(data) {
         const yaml_string = yaml.stringify(data, 4);
-        return new Promise((resolve, reject) => fs
-            .writeFile(
-                this.getCurrentFilenamePath(),
-                yaml_string,
-                (error) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    return resolve();
-                })
+        return fsPromised.writeFile(
+            this.getCurrentFilenamePath(),
+            yaml_string
         );
     }
 }
