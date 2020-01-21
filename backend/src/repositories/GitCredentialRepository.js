@@ -1,7 +1,7 @@
 'use strict';
 
 const yaml = require('yamljs');
-const fsPromised = require('fs').promise;
+const fsPromised = require('fs').promises;
 
 class GitCredentialRepository {
 
@@ -26,10 +26,16 @@ class GitCredentialRepository {
     /**
      * @return {String}
      */
-    getCurrentFilenamePath() {
-        return `${__dirname}../../data/${GitCredentialRepository.GIT_CREDENTIAL_FILE_NAME}`;
+    getGitCredentialFileName() {
+        return GitCredentialRepository.GIT_CREDENTIAL_FILE_NAME;
     }
 
+    /**
+     * @return {String}
+     */
+    getCurrentFilenamePath() {
+        return `${__dirname}/../../data/${this.getGitCredentialFileName()}`;
+    }
 
     /**
      * @return {Object}
