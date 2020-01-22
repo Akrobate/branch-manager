@@ -1,9 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-
-const yaml = require('yamljs');
-
 const {
     expect,
 } = require('chai');
