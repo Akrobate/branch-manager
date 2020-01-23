@@ -1,7 +1,8 @@
 'use strict';
 
-const yaml = require('yamljs');
-const fsPromised = require('fs').promises;
+const {
+    FileSystemRepository,
+} = require('./FileSystemRepository');
 
 class GitCredentialRepository {
 
@@ -18,9 +19,18 @@ class GitCredentialRepository {
      */
     static getInstance() {
         if (GitCredentialRepository.instance === null) {
-            GitCredentialRepository.instance = new GitCredentialRepository();
+            GitCredentialRepository.instance = new GitCredentialRepository(
+                FileSystemRepository.getInstance()
+            );
         }
         return GitCredentialRepository.instance;
+    }
+
+    /**
+     * @param {FileSystemRepository} file_system_repository
+     */
+    constructor(file_system_repository) {
+        this.file_system_repository = file_system_repository;
     }
 
     /**
@@ -33,7 +43,7 @@ class GitCredentialRepository {
     /**
      * @return {String}
      */
-    getCurrentFilenamePath() {
+    getCredentialFilenamePath() {
         return `${__dirname}/../../data/${this.getGitCredentialFileName()}`;
     }
 
@@ -41,12 +51,8 @@ class GitCredentialRepository {
      * @return {Object}
      */
     getCredentials() {
-        return fsPromised
-            .readFile(
-                this.getCurrentFilenamePath(),
-                'utf8'
-            )
-            .then((data) => yaml.parse(data));
+        return this.file_system_repository
+            .readYamlFile(this.getCredentialFilenamePath());
     }
 
     /**
@@ -54,12 +60,10 @@ class GitCredentialRepository {
      * @return {Promise}
      */
     saveCredentials(data) {
-        const yaml_string = yaml.stringify(data, 4);
-        return fsPromised.writeFile(
-            this.getCurrentFilenamePath(),
-            yaml_string
-        );
+        return this.file_system_repository
+            .writeYamlFile(this.getCredentialFilenamePath(), data);
     }
+
 }
 
 
