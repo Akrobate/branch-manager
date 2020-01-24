@@ -4,9 +4,14 @@ const {
     Router,
 } = require('express');
 
+const {
+    CredentialController,
+} = require('../controllers');
+
 const router = new Router();
 
-// Old routes, to reuse
-// router.get('/', (request, response) => controller.getMe(request, response));
+const credential_controller = CredentialController.getInstance();
+
+router.get('/credentials', (request, response) => credential_controller.getCredentials(request, response));
 
 module.exports = router;
