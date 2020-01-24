@@ -59,6 +59,22 @@ class FileSystemRepository {
         const yaml_string = yaml.stringify(data, 4);
         return this.writeFile(file, yaml_string);
     }
+
+    /**
+     * @param {String} directory
+     * @return {Promise}
+     */
+    createDirectory(directory) {
+        return this.mkdir(directory);
+    }
+
+    /**
+     * @param {String} directory
+     * @return {Promise}
+     */
+    removeDirectory(directory) {
+        return this.rmdir(directory);
+    }
 }
 
 
