@@ -44,7 +44,7 @@ class GitCredentialRepository {
      * @return {String}
      */
     getCredentialFilenamePath() {
-        return `${__dirname}/../../data/${this.getGitCredentialFileName()}`;
+        return `${this.file_system_repository.getDataDir()}${this.getGitCredentialFileName()}`;
     }
 
     /**

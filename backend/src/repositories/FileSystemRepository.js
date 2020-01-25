@@ -16,6 +16,13 @@ class FileSystemRepository {
     }
 
     /**
+     * @return {String}
+     */
+    getDataDir() {
+        return `${__dirname}/../../data/`;
+    }
+
+    /**
      * @param {String} file
      * @return {Promise}
      */
