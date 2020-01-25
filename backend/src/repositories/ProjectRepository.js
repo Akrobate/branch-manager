@@ -4,14 +4,18 @@ const {
     FileSystemRepository,
 } = require('./FileSystemRepository');
 
+const {
+    v4,
+} = require('uuid');
+
 class ProjectRepository {
 
     /**
      * @static
      * @return {String}
      */
-    static get PROJECT_DIR() {
-        return `${__dirname}/../../data/projects`;
+    static get PROJECTS_DIR_NAME() {
+        return 'projects';
     }
 
     /**
@@ -24,6 +28,13 @@ class ProjectRepository {
             );
         }
         return ProjectRepository.instance;
+    }
+
+    /**
+     * @return {String}
+     */
+    getProjectsDirnamePath() {
+        return `${this.file_system_repository.getDataDir()}${ProjectRepository.PROJECTS_DIR_NAME}/`;
     }
 
     /**
@@ -41,10 +52,10 @@ class ProjectRepository {
     }
 
     /**
-     * @param {String} project_name
+     * @param {String} id
      * @return {Object}
      */
-    getProject(project_name) {
+    getProject(id) {
         return Promise.resolve(project_name);
     }
 
@@ -53,9 +64,23 @@ class ProjectRepository {
      * @return {Promise}
      */
     createProject(project_name) {
-        // create project directory
+
+        const id = v4();
+        const directory = `${this.getProjectsDirnamePath}${id}`;
+        const configuration_file = `${directory}/project.yaml`;
         // create project yaml configuration file
-        return Promise.resolve(project_name);
+        const project = {
+            id,
+            name: project_name,
+            branch_flow: [],
+            repository_list: [],
+        };
+
+        return this.file_system_repository
+            // create project directory
+            .createDirectory(directory)
+            // write configuration file
+            .then(() => this.file_system_repository.writeYamlFile(configuration_file, project));
     }
 
 }
