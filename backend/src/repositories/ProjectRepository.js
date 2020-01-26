@@ -56,7 +56,9 @@ class ProjectRepository {
      * @return {Object}
      */
     getProject(id) {
-        return Promise.resolve(project_name);
+        const directory = `${this.getProjectsDirnamePath()}${id}`;
+        return this.file_system_repository
+            .readYamlFile(`${directory}/project.yaml`);
     }
 
     /**
@@ -66,7 +68,7 @@ class ProjectRepository {
     createProject(project_name) {
 
         const id = v4();
-        const directory = `${this.getProjectsDirnamePath}${id}`;
+        const directory = `${this.getProjectsDirnamePath()}${id}`;
         const configuration_file = `${directory}/project.yaml`;
         // create project yaml configuration file
         const project = {
@@ -81,6 +83,49 @@ class ProjectRepository {
             .createDirectory(directory)
             // write configuration file
             .then(() => this.file_system_repository.writeYamlFile(configuration_file, project));
+    }
+
+    /**
+     * @param {String} id
+     * @param {Object} project
+     * @return {Promise}
+     */
+    updateProject(id, project) {
+        const directory = `${this.getProjectsDirnamePath}${id}`;
+        const configuration_file = `${directory}/project.yaml`;
+        return this
+            .getProject(id)
+            .then((saved_project) => Object.assign({}, saved_project, project))
+            .then((updated_project) => this.file_system_repository.writeYamlFile(configuration_file, updated_project));
+    }
+
+    /**
+     * @param {String} project_id
+     * @param {Object} repository
+     * @return {Promise<Object>}
+     */
+    addRepository(project_id, repository) {
+        // @todo Define repository object
+        return this.getAllRepositories(project_id)
+            .then((repository_list) => repository_list.push(repository))
+            .then((repository_list) => this
+                .updateProject(
+                    project_id,
+                    {
+                        repository_list,
+                    }
+                )
+            );
+    }
+
+    /**
+     * @param {String} project_id
+     * @param {Object} repository
+     * @return {Promise<Array>}
+     */
+    getAllRepositories(project_id) {
+        this.getProject(project_id)
+            .then((project) => project.repository_list);
     }
 
 }
