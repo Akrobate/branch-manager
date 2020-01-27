@@ -91,7 +91,7 @@ class ProjectRepository {
      * @return {Promise}
      */
     updateProject(id, project) {
-        const directory = `${this.getProjectsDirnamePath}${id}`;
+        const directory = `${this.getProjectsDirnamePath()}${id}`;
         const configuration_file = `${directory}/project.yaml`;
         return this
             .getProject(id)
@@ -124,7 +124,7 @@ class ProjectRepository {
      * @return {Promise<Array>}
      */
     getAllRepositories(project_id) {
-        this.getProject(project_id)
+        return this.getProject(project_id)
             .then((project) => project.repository_list);
     }
 

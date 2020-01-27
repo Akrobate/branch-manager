@@ -62,5 +62,29 @@ describe('ProjectRepository unit test', () => {
             .catch(done);
     });
 
+    it('getAllRepositories', (done) => {
+        project_repository
+            .getAllRepositories(test_project_id)
+            .then((result) => {
+                expect(result).to.be.an('Array');
+                done();
+            })
+            .catch(done);
+    });
+
+    it('updateProject', (done) => {
+        project_repository
+            .updateProject(
+                test_project_id,
+                {
+                    name: 'New project name',
+                }
+            )
+            .then(() => {
+                done();
+            })
+            .catch(done);
+    });
+
 });
 
