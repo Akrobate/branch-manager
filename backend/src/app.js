@@ -1,7 +1,11 @@
 'use strict';
 
+const {
+    logger,
+} = require('./logger');
+
 const { 
     server,
 } = require('./server');
 
-app.listen(3000, () => console.log('AssemblaBot listening on port: 3000');
+app.listen(3000, () => logger.info('Branch manager server listening');
