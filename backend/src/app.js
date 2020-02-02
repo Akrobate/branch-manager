@@ -4,8 +4,8 @@ const {
     logger,
 } = require('./logger');
 
-const { 
+const {
     server,
 } = require('./server');
 
-app.listen(3000, () => logger.info('Branch manager server listening');
+server.listen(3000, () => logger.info('Branch manager server listening'));
