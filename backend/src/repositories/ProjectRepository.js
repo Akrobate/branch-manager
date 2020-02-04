@@ -48,7 +48,9 @@ class ProjectRepository {
      * @return {Object}
      */
     getAllProjects() {
-        return Promise.resolve([]);
+        return this
+            .file_system_repository
+            .listDirectory(this.getProjectsDirnamePath());
     }
 
     /**
