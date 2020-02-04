@@ -72,7 +72,7 @@ class FileSystemRepository {
      * @return {Promise}
      */
     createDirectory(directory) {
-        return this.mkdir(directory);
+        return fsPromised.mkdir(directory);
     }
 
     /**
@@ -80,7 +80,15 @@ class FileSystemRepository {
      * @return {Promise}
      */
     removeDirectory(directory) {
-        return this.rmdir(directory);
+        return fsPromised.rmdir(directory);
+    }
+
+    /**
+     * @param {String} directory
+     * @return {Promise}
+     */
+    listDirectory(directory) {
+        return fsPromised.readdir(directory);
     }
 }
 
