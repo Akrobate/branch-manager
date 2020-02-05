@@ -50,7 +50,11 @@ class ProjectRepository {
     getAllProjects() {
         return this
             .file_system_repository
-            .listDirectory(this.getProjectsDirnamePath());
+            .listDirectory(this.getProjectsDirnamePath())
+            .then((project_directory_list) => Promise.all(
+                project_directory_list,
+                (project_id) => this.getProject(project_id)
+            ));
     }
 
     /**
