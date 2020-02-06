@@ -33,6 +33,14 @@ class CredentialService {
             .getCredentials();
     }
 
+    /**
+     * @param {Object} criteria
+     * @returns {Promise<Object>}
+     */
+    search(criteria) {
+        return this.git_credential_repository
+            .search(criteria);
+    }
 }
 
 CredentialService.instance = null;
