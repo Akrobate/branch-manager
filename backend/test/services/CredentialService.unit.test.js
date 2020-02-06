@@ -9,6 +9,10 @@ const {
 } = require('sinon');
 
 const {
+    v4,
+} = require('uuid');
+
+const {
     GitCredentialRepository,
 } = require('../../src/repositories');
 
@@ -45,5 +49,90 @@ describe('CredentialService unit test', () => {
             });
     });
 
+    describe('Search', () => {
+
+        const credential_repository_data = [
+            {
+                key_1: v4(),
+                key_2: v4(),
+                key_3: v4(),
+            },
+            {
+                key_1: v4(),
+                key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
+                key_3: v4(),
+            },
+            {
+                key_1: v4(),
+                key_2: v4(),
+                key_3: v4(),
+            },
+        ];
+
+        it('Should be able to find with empty criteria', (done) => {
+            mocks.git_credential_repository.expects('getCredentials')
+                .once()
+                .returns(Promise.resolve(credential_repository_data));
+
+            credential_service
+                .search()
+                .then((data) => {
+                    expect(data).to.be.an('Array');
+                    expect(data).to.deep.equal(credential_repository_data);
+                    done();
+                });
+        });
+
+        it('Should result when elemnt found', (done) => {
+            mocks.git_credential_repository.expects('getCredentials')
+                .once()
+                .returns(Promise.resolve(credential_repository_data));
+
+            credential_service
+                .search({
+                    key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
+                })
+                .then((data) => {
+                    expect(data).to.be.an('Array');
+                    expect(data).to.deep.equal([
+                        credential_repository_data[1],
+                    ]);
+                    done();
+                });
+        });
+
+        it('Should not find result if unknown criteria is setted', (done) => {
+            mocks.git_credential_repository.expects('getCredentials')
+                .once()
+                .returns(Promise.resolve(credential_repository_data));
+
+            credential_service
+                .search({
+                    key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
+                    key_unknown: v4(),
+                })
+                .then((data) => {
+                    expect(data).to.be.an('Array');
+                    expect(data).to.deep.equal([]);
+                    done();
+                });
+        });
+
+        it('Should return empty array if not found', (done) => {
+            mocks.git_credential_repository.expects('getCredentials')
+                .once()
+                .returns(Promise.resolve(credential_repository_data));
+
+            credential_service
+                .search({
+                    key_1: 'NOT_EXISTING_VALUE_IN_DATASET',
+                })
+                .then((data) => {
+                    expect(data).to.be.an('Array');
+                    expect(data).to.deep.equal([]);
+                    done();
+                });
+        });
+    });
 });
 
