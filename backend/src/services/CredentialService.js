@@ -41,6 +41,23 @@ class CredentialService {
         return this.git_credential_repository
             .search(criteria);
     }
+
+    /**
+     * @param {Integer} id
+     * @param {Object} input
+     * @returns {Promise<Object>}
+     */
+    updateCredential(id, input) {
+        return this.git_credential_repository
+            .updateCredential(Object.assign(
+                {},
+                input,
+                {
+                    id,
+                }
+            ));
+    }
+
 }
 
 CredentialService.instance = null;

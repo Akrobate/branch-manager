@@ -89,6 +89,30 @@ class GitCredentialRepository {
             );
     }
 
+    /**
+     * @param {Object} input
+     * @return {Object}
+     */
+    updateCredential(input) {
+        const {
+            id,
+        } = input;
+        return new Promise((resolve, reject) => {
+            if (id === undefined || id === null) {
+                return reject(new Error('Cannot update with empty ID'));
+            }
+            return this.getCredentials()
+                .then((credential_list) => {
+                    const index = credential_list.findIndex((credential) => credential.id === id);
+                    credential_list[index] = input;
+                    return credential_list;
+                })
+                .then((data) => this.saveCredentials(data))
+                .then(() => resolve(input));
+        });
+
+    }
+
 }
 
 
