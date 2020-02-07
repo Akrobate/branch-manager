@@ -134,5 +134,52 @@ describe('CredentialService unit test', () => {
                 });
         });
     });
+
+    describe.only('Update', () => {
+
+        const credential_repository_data = [
+            {
+                id: v4(),
+                key_1: v4(),
+            },
+            {
+                id: 'THE_ID_TO_UPDATE',
+                key_1: v4(),
+            },
+        ];
+
+        it('Should be able to find with empty criteria', (done) => {
+            mocks.git_credential_repository.expects('getCredentials')
+                .once()
+                .returns(Promise.resolve(credential_repository_data));
+
+            mocks.git_credential_repository.expects('saveCredentials')
+                .once()
+                .withArgs([
+                    credential_repository_data[0],
+                    {
+                        id: 'THE_ID_TO_UPDATE',
+                        key_1: 'UPDATED_KEY_1',
+                    },
+                ])
+                .returns(Promise.resolve({
+                    id: 'THE_ID_TO_UPDATE',
+                    key_1: 'UPDATED_KEY_1',
+                }));
+
+            credential_service
+                .updateCredential(
+                    'THE_ID_TO_UPDATE',
+                    {
+                        key_1: 'UPDATED_KEY_1',
+                    }
+                )
+                .then(() => {
+                    mocks.git_credential_repository.verify();
+                    done();
+                });
+        });
+
+    });
 });
 
