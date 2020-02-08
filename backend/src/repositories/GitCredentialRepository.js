@@ -104,8 +104,38 @@ class GitCredentialRepository {
             return this.getCredentials()
                 .then((credential_list) => {
                     const index = credential_list.findIndex((credential) => credential.id === id);
-                    credential_list[index] = input;
-                    return credential_list;
+                    if (index > -1) {
+                        credential_list[index] = input;
+                        return credential_list;
+                    }
+                    return reject(new Error(`Cannot find element with ID: ${id}`));
+                })
+                .then((data) => this.saveCredentials(data))
+                .then(() => resolve(input));
+        });
+
+    }
+
+    /**
+     * @param {Object} input
+     * @return {Object}
+     */
+    deleteCredential(input) {
+        const {
+            id,
+        } = input;
+        return new Promise((resolve, reject) => {
+            if (id === undefined || id === null) {
+                return reject(new Error('Cannot delete with empty ID'));
+            }
+            return this.getCredentials()
+                .then((credential_list) => {
+                    const index = credential_list.findIndex((credential) => credential.id === id);
+                    if (index > -1) {
+                        credential_list.splice(index, 1);
+                        return credential_list;
+                    }
+                    return reject(new Error(`Cannot find element with ID: ${id}`));
                 })
                 .then((data) => this.saveCredentials(data))
                 .then(() => resolve(input));
