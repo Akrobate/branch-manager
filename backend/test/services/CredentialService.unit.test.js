@@ -25,9 +25,13 @@ describe('CredentialService unit test', () => {
     let credential_service = null;
     const mocks = {};
 
-    before(() => {
+    beforeEach(() => {
         credential_service = CredentialService.getInstance();
         mocks.git_credential_repository = mock(GitCredentialRepository.getInstance());
+    });
+
+    afterEach(() => {
+        mocks.git_credential_repository.restore();
     });
 
     it('getInstance', () => {
@@ -135,7 +139,7 @@ describe('CredentialService unit test', () => {
         });
     });
 
-    describe.only('Update', () => {
+    describe('Update', () => {
 
         const credential_repository_data = [
             {
@@ -148,7 +152,7 @@ describe('CredentialService unit test', () => {
             },
         ];
 
-        it('Should be able to find with empty criteria', (done) => {
+        it('Should be able to update', (done) => {
             mocks.git_credential_repository.expects('getCredentials')
                 .once()
                 .returns(Promise.resolve(credential_repository_data));
@@ -176,6 +180,43 @@ describe('CredentialService unit test', () => {
                 )
                 .then(() => {
                     mocks.git_credential_repository.verify();
+                    done();
+                });
+        });
+
+        it('Should not be able to update if ID not exist', (done) => {
+            mocks.git_credential_repository.expects('getCredentials')
+                .once()
+                .returns(Promise.resolve(credential_repository_data));
+
+            credential_service
+                .updateCredential(
+                    'NOT_EXISTING_ID',
+                    {
+                        key_1: 'UPDATED_KEY_1',
+                    }
+                )
+                .then(() => {
+                    done('Should not be able to update');
+                })
+                .catch(() => {
+                    mocks.git_credential_repository.verify();
+                    done();
+                });
+        });
+
+        it('Should not be able to update if ID is undefined', (done) => {
+            credential_service
+                .updateCredential(
+                    undefined,
+                    {
+                        key_1: 'UPDATED_KEY_1',
+                    }
+                )
+                .then(() => {
+                    done('Should not be able to update');
+                })
+                .catch(() => {
                     done();
                 });
         });
