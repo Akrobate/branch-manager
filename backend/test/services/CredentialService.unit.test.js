@@ -48,6 +48,7 @@ describe('CredentialService unit test', () => {
         credential_service
             .getCredentials()
             .then((data) => {
+                mocks.git_credential_repository.verify();
                 expect(data).to.be.an('Array');
                 done();
             });
@@ -84,7 +85,8 @@ describe('CredentialService unit test', () => {
                     expect(data).to.be.an('Array');
                     expect(data).to.deep.equal(credential_repository_data);
                     done();
-                });
+                })
+                .catch(done);
         });
 
         it('Should result when elemnt found', (done) => {
@@ -101,8 +103,10 @@ describe('CredentialService unit test', () => {
                     expect(data).to.deep.equal([
                         credential_repository_data[1],
                     ]);
+                    mocks.git_credential_repository.verify();
                     done();
-                });
+                })
+                .catch(done);
         });
 
         it('Should not find result if unknown criteria is setted', (done) => {
@@ -119,7 +123,8 @@ describe('CredentialService unit test', () => {
                     expect(data).to.be.an('Array');
                     expect(data).to.deep.equal([]);
                     done();
-                });
+                })
+                .catch(done);
         });
 
         it('Should return empty array if not found', (done) => {
@@ -134,8 +139,10 @@ describe('CredentialService unit test', () => {
                 .then((data) => {
                     expect(data).to.be.an('Array');
                     expect(data).to.deep.equal([]);
+                    mocks.git_credential_repository.verify();
                     done();
-                });
+                })
+                .catch(done);
         });
     });
 
@@ -185,8 +192,8 @@ describe('CredentialService unit test', () => {
         });
 
         it('Should not be able to update if ID not exist', (done) => {
+
             mocks.git_credential_repository.expects('getCredentials')
-                .once()
                 .returns(Promise.resolve(credential_repository_data));
 
             credential_service
@@ -200,12 +207,17 @@ describe('CredentialService unit test', () => {
                     done('Should not be able to update');
                 })
                 .catch(() => {
-                    mocks.git_credential_repository.verify();
+                    try {
+                        mocks.git_credential_repository.verify();
+                    } catch (error) {
+                        done(error);
+                    }
                     done();
                 });
         });
 
         it('Should not be able to update if ID is undefined', (done) => {
+
             credential_service
                 .updateCredential(
                     undefined,

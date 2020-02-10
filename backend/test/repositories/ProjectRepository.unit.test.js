@@ -45,6 +45,7 @@ describe('ProjectRepository unit test', () => {
     after(() => {
         fs.unlinkSync(`./data/projects/${test_project_id}/${project_test_file_name}`);
         fs.rmdirSync(`./data/projects/${test_project_id}`);
+        mocks.project_repository.restore();
     });
 
     it('getInstance', () => {
