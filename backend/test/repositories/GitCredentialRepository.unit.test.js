@@ -49,6 +49,14 @@ describe('GitCredentialRepository unit test', () => {
         fs.unlinkSync(`./data/${credential_test_file_name}`);
     });
 
+    beforeEach(() => {
+        mocks.git_credential_repository = mock(git_credential_repository);
+    });
+
+    afterEach(() => {
+        mocks.git_credential_repository.restore();
+    });
+
     it('getInstance', () => {
         expect(git_credential_repository).to.be.an.instanceOf(GitCredentialRepository);
         expect(git_credential_repository).to.equal(GitCredentialRepository.getInstance());
@@ -59,7 +67,6 @@ describe('GitCredentialRepository unit test', () => {
     });
 
     it('getCredentials', (done) => {
-
         mocks.git_credential_repository.expects('getGitCredentialFileName')
             .once()
             .returns(credential_test_file_name);
@@ -73,9 +80,7 @@ describe('GitCredentialRepository unit test', () => {
     });
 
     it('saveCredentials', (done) => {
-
         credential_test_file_data[0].key_1 = 'Updated_property';
-
         mocks.git_credential_repository.expects('getGitCredentialFileName')
             .twice()
             .returns(credential_test_file_name);
