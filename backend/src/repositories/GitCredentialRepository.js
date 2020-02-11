@@ -3,6 +3,9 @@
 const {
     FileSystemRepository,
 } = require('./FileSystemRepository');
+const {
+    ListObjectRepository,
+} = require('./ListObjectRepository');
 
 class GitCredentialRepository {
 
@@ -20,7 +23,8 @@ class GitCredentialRepository {
     static getInstance() {
         if (GitCredentialRepository.instance === null) {
             GitCredentialRepository.instance = new GitCredentialRepository(
-                FileSystemRepository.getInstance()
+                FileSystemRepository.getInstance(),
+                ListObjectRepository.getInstance()
             );
         }
         return GitCredentialRepository.instance;
@@ -28,9 +32,14 @@ class GitCredentialRepository {
 
     /**
      * @param {FileSystemRepository} file_system_repository
+     * @param {ListObjectRepository} list_object_repository
      */
-    constructor(file_system_repository) {
+    constructor(
+        file_system_repository,
+        list_object_repository
+    ) {
         this.file_system_repository = file_system_repository;
+        this.list_object_repository = list_object_repository;
     }
 
     /**
@@ -68,7 +77,7 @@ class GitCredentialRepository {
      * @param {Object} criteria
      * @return {Array<Object>}
      */
-    search(criteria) {
+    search2(criteria) {
         if (criteria === undefined || criteria === null) {
             return this.getCredentials();
         }
@@ -90,6 +99,15 @@ class GitCredentialRepository {
     }
 
     /**
+     * @param {Object} criteria
+     * @return {Array<Object>}
+     */
+    search(criteria) {
+        return this.getCredentials()
+            .then((credential_list) => this.list_object_repository.search(criteria, credential_list));
+    }
+
+    /**
      * @param {Object} input
      * @return {Object}
      */
@@ -103,10 +121,9 @@ class GitCredentialRepository {
             }
             return this.getCredentials()
                 .then((credential_list) => {
-                    const index = credential_list.findIndex((credential) => credential.id === id);
-                    if (index > -1) {
-                        credential_list[index] = input;
-                        return credential_list;
+                    const update_result = this.list_object_repository.update(id, input, credential_list);
+                    if (update_result !== false) {
+                        return update_result;
                     }
                     return reject(new Error(`Cannot find element with ID: ${id}`));
                 })
@@ -130,10 +147,9 @@ class GitCredentialRepository {
             }
             return this.getCredentials()
                 .then((credential_list) => {
-                    const index = credential_list.findIndex((credential) => credential.id === id);
-                    if (index > -1) {
-                        credential_list.splice(index, 1);
-                        return credential_list;
+                    const update_result = this.list_object_repository.delete(id, credential_list);
+                    if (update_result !== false) {
+                        return update_result;
                     }
                     return reject(new Error(`Cannot find element with ID: ${id}`));
                 })

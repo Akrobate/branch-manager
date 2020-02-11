@@ -19,7 +19,7 @@ class ListObjectRepository {
      */
     search(criteria, data_list) {
         if (criteria === undefined || criteria === null) {
-            return false;
+            return data_list;
         }
         return data_list
             .filter((credential) => {
