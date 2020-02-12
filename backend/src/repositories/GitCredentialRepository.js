@@ -77,31 +77,6 @@ class GitCredentialRepository {
      * @param {Object} criteria
      * @return {Array<Object>}
      */
-    search2(criteria) {
-        if (criteria === undefined || criteria === null) {
-            return this.getCredentials();
-        }
-        return this.getCredentials()
-            .then((credential_list) => credential_list
-                .filter((credential) => {
-                    let criteria_match = true;
-                    Object.keys(criteria).forEach((criteria_field) => {
-                        if (criteria_match
-                            && (!(credential[criteria_field] !== undefined
-                                && credential[criteria_field] === criteria[criteria_field]))
-                        ) {
-                            criteria_match = false;
-                        }
-                    });
-                    return criteria_match;
-                })
-            );
-    }
-
-    /**
-     * @param {Object} criteria
-     * @return {Array<Object>}
-     */
     search(criteria) {
         return this.getCredentials()
             .then((credential_list) => this.list_object_repository.search(criteria, credential_list));
