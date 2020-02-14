@@ -5,6 +5,10 @@ const {
 } = require('./FileSystemRepository');
 
 const {
+    ListObjectRepository,
+} = require('./ListObjectRepository');
+
+const {
     v4,
 } = require('uuid');
 
@@ -24,7 +28,8 @@ class ProjectRepository {
     static getInstance() {
         if (ProjectRepository.instance === null) {
             ProjectRepository.instance = new ProjectRepository(
-                FileSystemRepository.getInstance()
+                FileSystemRepository.getInstance(),
+                ListObjectRepository.getInstance()
             );
         }
         return ProjectRepository.instance;
@@ -39,9 +44,14 @@ class ProjectRepository {
 
     /**
      * @param {FileSystemRepository} file_system_repository
+     * @param {ListObjectRepository} list_object_repository
      */
-    constructor(file_system_repository) {
+    constructor(
+        file_system_repository,
+        list_object_repository
+    ) {
         this.file_system_repository = file_system_repository;
+        this.list_object_repository = list_object_repository;
     }
 
     /**
@@ -55,6 +65,19 @@ class ProjectRepository {
                 project_directory_list,
                 (project_id) => this.getProject(project_id)
             ));
+    }
+
+    /**
+     * @param {*} criteria
+     * @return {Promise<Array>}
+     */
+    searchProject(criteria) {
+        return this
+            .getAllProjects()
+            .then((project_list) => this
+                .list_object_repository
+                .search(criteria, project_list)
+            );
     }
 
     /**
