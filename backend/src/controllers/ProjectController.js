@@ -26,11 +26,14 @@ class ProjectController {
     }
 
     /**
+     * @param {Resquest} request
+     * @param {Response} response
      * @returns {Promise<Object>}
      */
-    getAllProjects() {
+    getAllProjects(request, response) {
         return this.project_service
-            .getAllProjects();
+            .getAllProjects()
+            .then((data) => response.json(data));
     }
 
 }
