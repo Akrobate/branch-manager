@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="md-title">Home</h1>
+        <h1 class="md-title">Projects</h1>
         <md-list class="md-triple-line">
             <div v-for="item in data_list" :key="item.name">
                 <md-list-item>
@@ -41,7 +41,7 @@
 <script>
 
 export default {
-    name: 'HomePage',
+    name: 'ProjectsPage',
     components: {
     },
     data() {
