@@ -15,17 +15,17 @@
                 <span class="md-list-item-text">Menu</span>
             </md-list-item>
 
-            <md-list-item>
+            <md-list-item :to="{ name: 'HomePage'}" exact>
                 <md-icon>home</md-icon>
                 <span class="md-list-item-text">Home</span>
             </md-list-item>
 
-            <md-list-item>
+            <md-list-item :to="{ name: 'ProjectsPage'}">
                 <md-icon>assignment</md-icon>
-                <span class="md-list-item-text">Report</span>
+                <span class="md-list-item-text">Projects</span>
             </md-list-item>
 
-            <md-list-item>
+            <md-list-item :to="{ name: 'CredentialsPage'}">
                 <md-icon>settings_applications</md-icon>
                 <span class="md-list-item-text">Settings</span>
             </md-list-item>
