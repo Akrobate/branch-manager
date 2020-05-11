@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Helper to work with data stored in lists as objects
+ * ListObject is not an entity, just a toolbox used in other repositories
+ */
+
 class ListObjectRepository {
 
     /**
@@ -22,12 +27,12 @@ class ListObjectRepository {
             return data_list;
         }
         return data_list
-            .filter((credential) => {
+            .filter((data) => {
                 let criteria_match = true;
                 Object.keys(criteria).forEach((criteria_field) => {
                     if (criteria_match
-                        && (!(credential[criteria_field] !== undefined
-                            && credential[criteria_field] === criteria[criteria_field]))
+                        && (!(data[criteria_field] !== undefined
+                            && data[criteria_field] === criteria[criteria_field]))
                     ) {
                         criteria_match = false;
                     }
@@ -37,7 +42,8 @@ class ListObjectRepository {
     }
 
     /**
-     * @param {Integer} id
+     * Warning: data_list is changed in place
+     * @param {*} id
      * @param {Object} input
      * @param {Array<Object>} data_list
      * @return {Object}
@@ -52,7 +58,7 @@ class ListObjectRepository {
     }
 
     /**
-     * @param {Integer} id
+     * @param {*} id
      * @param {Array<Object>} data_list
      * @return {Object}
      */
