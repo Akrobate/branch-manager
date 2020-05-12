@@ -8,10 +8,12 @@ import 'vue-material/dist/vue-material.min.css'
 // import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
+import Vuex from 'vuex'
 import router from './router'
 import App from './App'
 
 Vue.use(VueMaterial)
+Vue.use(Vuex)
 
 // Vue.use(MdContent)
 // Vue.use(MdTabs)
