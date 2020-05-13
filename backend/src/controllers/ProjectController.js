@@ -36,6 +36,20 @@ class ProjectController {
             .then((data) => response.json(data));
     }
 
+    /**
+     * @param {Resquest} request
+     * @param {Response} response
+     * @returns {Promise<Object>}
+     */
+    getProject(request, response) {
+        const {
+            id,
+        } = request.params;
+        return this.project_service
+            .getProject(id)
+            .then((data) => response.json(data));
+    }
+
 }
 
 ProjectController.instance = null;

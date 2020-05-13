@@ -33,6 +33,15 @@ class ProjectService {
             .getAllProjects();
     }
 
+    /**
+     * @param {String} id
+     * @returns {Promise<Object>}
+     */
+    getProject(id) {
+        return this.project_repository
+            .getProject(id);
+    }
+
 }
 
 ProjectService.instance = null;
