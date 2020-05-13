@@ -23,7 +23,7 @@ const {
 describe('ProjectRepository unit test', () => {
 
     let project_repository = null;
-    const test_project_id = v4();
+    const test_project_id = `test_${v4()}`;
     const project_test_file_name = 'project.yaml';
     const project_test_file_data = {
         id: test_project_id,
