@@ -6,6 +6,7 @@ const {
 
 class CredentialController {
 
+    /* istanbul ignore next */
     /**
      * @return {CredentialController}
      */
@@ -26,11 +27,14 @@ class CredentialController {
     }
 
     /**
+     * @param {Request} request
+     * @param {Response} response
      * @returns {Promise<Object>}
      */
-    getCredentials() {
+    getCredentials(request, response) {
         return this.credential_service
-            .getCredentials();
+            .getCredentials()
+            .then((data) => response.json(data));
     }
 
 }

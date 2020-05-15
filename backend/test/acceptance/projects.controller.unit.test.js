@@ -80,7 +80,6 @@ describe('Projects controller', () => {
                     const {
                         body,
                     } = result;
-                    console.log(body)
                     expect(body).to.be.an('Object');
                     expect(body).to.have.property('id');
                     expect(body).to.have.property('name');

@@ -6,6 +6,7 @@ const {
 
 class ProjectController {
 
+    /* istanbul ignore next */
     /**
      * @return {ProjectController}
      */
