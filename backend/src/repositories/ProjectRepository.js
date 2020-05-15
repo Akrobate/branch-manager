@@ -1,5 +1,7 @@
 'use strict';
 
+const Promise = require('bluebird');
+
 const {
     FileSystemRepository,
 } = require('./FileSystemRepository');
@@ -61,7 +63,9 @@ class ProjectRepository {
         return this
             .file_system_repository
             .listDirectory(this.getProjectsDirnamePath())
-            .then((project_directory_list) => Promise.all(
+            .then((listed_dir_content) => listed_dir_content
+                .filter((item) => item !== '.gitignore'))
+            .then((project_directory_list) => Promise.map(
                 project_directory_list,
                 (project_id) => this.getProject(project_id)
             ));
@@ -87,7 +91,7 @@ class ProjectRepository {
     getProject(id) {
         const directory = `${this.getProjectsDirnamePath()}${id}`;
         return this.file_system_repository
-            .readYamlFile(`${directory}/project.yaml`);
+            .readYamlFile(`${directory}/project.yml`);
     }
 
     /**
@@ -98,7 +102,7 @@ class ProjectRepository {
 
         const id = v4();
         const directory = `${this.getProjectsDirnamePath()}${id}`;
-        const configuration_file = `${directory}/project.yaml`;
+        const configuration_file = `${directory}/project.yml`;
         // create project yaml configuration file
         const project = {
             id,
@@ -121,7 +125,7 @@ class ProjectRepository {
      */
     updateProject(id, project) {
         const directory = `${this.getProjectsDirnamePath()}${id}`;
-        const configuration_file = `${directory}/project.yaml`;
+        const configuration_file = `${directory}/project.yml`;
         return this
             .getProject(id)
             .then((saved_project) => Object.assign({}, saved_project, project))

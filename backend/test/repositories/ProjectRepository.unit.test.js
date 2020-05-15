@@ -24,7 +24,7 @@ describe('ProjectRepository unit test', () => {
 
     let project_repository = null;
     const test_project_id = `test_${v4()}`;
-    const project_test_file_name = 'project.yaml';
+    const project_test_file_name = 'project.yml';
     const project_test_file_data = {
         id: test_project_id,
         name: v4(),
@@ -57,7 +57,33 @@ describe('ProjectRepository unit test', () => {
         project_repository
             .getProject(test_project_id)
             .then((result) => {
+                // console.log(result);
                 expect(result).to.be.an('Object');
+                expect(result).to.have.property('id', project_test_file_data.id);
+                expect(result).to.have.property('name', project_test_file_data.name);
+                expect(result).to.have.property('branch_flow');
+                expect(result.branch_flow).to.be.an('Array');
+                expect(result.repository_list).to.be.an('Array');
+                done();
+            })
+            .catch(done);
+    });
+
+    it('getAllProjects', (done) => {
+        project_repository
+            .getAllProjects()
+            .then((result) => {
+                expect(result).to.be.an('Array');
+                expect(result.length).to.be.gt(0);
+                const [
+                    first_result,
+                ] = result;
+                expect(first_result).to.be.an('Object');
+                expect(first_result).to.have.property('id', project_test_file_data.id);
+                expect(first_result).to.have.property('name', project_test_file_data.name);
+                expect(first_result).to.have.property('branch_flow');
+                expect(first_result.branch_flow).to.be.an('Array');
+                expect(first_result.repository_list).to.be.an('Array');
                 done();
             })
             .catch(done);
