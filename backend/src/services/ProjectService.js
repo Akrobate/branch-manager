@@ -6,6 +6,7 @@ const {
 
 class ProjectService {
 
+    /* istanbul ignore next */
     /**
      * @return {ProjectService}
      */

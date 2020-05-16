@@ -6,6 +6,7 @@ const {
 
 class CredentialService {
 
+    /* istanbul ignore next */
     /**
      * @return {CredentialService}
      */

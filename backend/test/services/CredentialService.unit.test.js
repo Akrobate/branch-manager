@@ -34,11 +34,6 @@ describe('CredentialService unit test', () => {
         mocks.git_credential_repository.restore();
     });
 
-    it('getInstance', () => {
-        expect(credential_service).to.be.an.instanceOf(CredentialService);
-        expect(credential_service).to.equal(CredentialService.getInstance());
-    });
-
     it('getCredentials', (done) => {
 
         mocks.git_credential_repository.expects('getCredentials')

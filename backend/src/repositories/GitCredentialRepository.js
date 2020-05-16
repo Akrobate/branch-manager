@@ -17,6 +17,7 @@ class GitCredentialRepository {
         return 'credentials.yml';
     }
 
+    /* istanbul ignore next */
     /**
      * @return {GitCredentialRepository}
      */

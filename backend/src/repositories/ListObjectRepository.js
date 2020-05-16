@@ -7,6 +7,7 @@
 
 class ListObjectRepository {
 
+    /* istanbul ignore next */
     /**
      * @return {ListObjectRepository}
      */

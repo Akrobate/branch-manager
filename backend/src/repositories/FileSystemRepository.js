@@ -5,6 +5,7 @@ const yaml = require('yamljs');
 
 class FileSystemRepository {
 
+    /* istanbul ignore next */
     /**
      * @return {FileSystemRepository}
      */

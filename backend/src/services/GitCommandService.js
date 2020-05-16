@@ -2,6 +2,7 @@
 
 class GitCommandService {
 
+    /* istanbul ignore next */
     /**
      * @return {GitCommandService}
      */

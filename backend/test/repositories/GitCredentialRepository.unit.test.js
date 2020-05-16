@@ -57,11 +57,6 @@ describe('GitCredentialRepository unit test', () => {
         mocks.git_credential_repository.restore();
     });
 
-    it('getInstance', () => {
-        expect(git_credential_repository).to.be.an.instanceOf(GitCredentialRepository);
-        expect(git_credential_repository).to.equal(GitCredentialRepository.getInstance());
-    });
-
     it('getGitCredentialFileName', () => {
         expect(git_credential_repository.getGitCredentialFileName()).to.equal('credentials.yml');
     });

@@ -24,6 +24,16 @@ class ProjectRepository {
         return 'projects';
     }
 
+
+    /**
+     * @return {String}
+     */
+    getProjectsDirnamePath() {
+        return `${this.file_system_repository.getDataDir()}${ProjectRepository.PROJECTS_DIR_NAME}/`;
+    }
+
+
+    /* istanbul ignore next */
     /**
      * @return {ProjectRepository}
      */
@@ -37,12 +47,6 @@ class ProjectRepository {
         return ProjectRepository.instance;
     }
 
-    /**
-     * @return {String}
-     */
-    getProjectsDirnamePath() {
-        return `${this.file_system_repository.getDataDir()}${ProjectRepository.PROJECTS_DIR_NAME}/`;
-    }
 
     /**
      * @param {FileSystemRepository} file_system_repository

@@ -20,11 +20,6 @@ describe('GitCommandService unit test', () => {
             .getInstance();
     });
 
-    it('getInstance', () => {
-        expect(git_command_service).to.be.an.instanceOf(GitCommandService);
-        expect(git_command_service).to.equal(GitCommandService.getInstance());
-    });
-
     it('GitClone', () => {
         const url = v4();
         expect(git_command_service.gitClone(url)).to.equal(`git clone ${url}`);

@@ -48,11 +48,6 @@ describe('ProjectRepository unit test', () => {
         mocks.project_repository.restore();
     });
 
-    it('getInstance', () => {
-        expect(project_repository).to.be.an.instanceOf(ProjectRepository);
-        expect(project_repository).to.equal(ProjectRepository.getInstance());
-    });
-
     it('getProject', (done) => {
         project_repository
             .getProject(test_project_id)
