@@ -10,4 +10,11 @@ const {
     server,
 } = require('./server');
 
-server.listen(3000, () => logger.info('Branch manager server listening'));
+const {
+    configuration,
+} = require('./configuration');
+
+server.listen(
+    configuration.getAppPort(),
+    () => logger.info('Branch manager server listening')
+);
