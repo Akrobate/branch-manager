@@ -16,5 +16,6 @@ const {
 
 server.listen(
     configuration.getAppPort(),
-    () => logger.info('Branch manager server listening')
+    () => logger.info(`Branch manager server listening port: ${configuration.getAppPort()}`)
 );
+
