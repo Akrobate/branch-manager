@@ -40,9 +40,20 @@
 
 <script>
 
+import {
+    project_repository,
+} from '@/repositories/ProjectRepository'
+
 export default {
     name: 'ProjectsPage',
     components: {
+    },
+    mounted() {
+        project_repository
+            .getAllProjects()
+            .then((data) => {
+                console.log(data)
+            })
     },
     data() {
         return {
