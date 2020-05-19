@@ -12,8 +12,8 @@
 
                     <div class="md-list-item-text">
                         <span>{{ item.name }}</span>
-                        <span>Brunch this weekend?</span>
-                        <p> to meet?</p>
+                        <span>-</span>
+                        <p>-</p>
                         <md-progress-bar v-if="false" md-mode="indeterminate"></md-progress-bar>
                     </div>
 
@@ -53,6 +53,7 @@ export default {
             .getAllProjects()
             .then((data) => {
                 console.log(data)
+                this.data_list = data
             })
     },
     data() {

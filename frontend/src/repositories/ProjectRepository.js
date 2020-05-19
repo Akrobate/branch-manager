@@ -3,10 +3,9 @@ import api_configuration from '@/configurations/api'
 
 class ProjectRepository {
     getAllProjects() {
-        console.log('Teeeeesttt')
-        console.log(`${api_configuration.url}/projects`)
         return axios
             .get(`${api_configuration.url}/projects`)
+            .then((result) => result.data)
     }
 }
 
