@@ -49,30 +49,42 @@ export default {
     components: {
     },
     mounted() {
-        project_repository
-            .getAllProjects()
-            .then((data) => {
-                console.log(data)
-                this.data_list = data
-            })
+        this.loadAllProjects()
     },
     data() {
         return {
             data_list: [
                 {
                     name: 'Lorem ispum si amet dolorit',
+                    branch_flow_string: 'a > b > c',
+                    repository_count: 0,
                 },
                 {
                     name: 'Lorem ispum si amet dolorit 2',
+                    branch_flow_string: 'a > b > c',
+                    repository_count: 0,
                 },
                 {
                     name: 'Lorem ispum si amet dolorit 3',
-                },
-                {
-                    name: 'Lorem ispum si amet dolorit 4',
+                    branch_flow_string: 'a > b > c',
+                    repository_count: 0,
                 },
             ],
         }
+    },
+    methods: {
+        loadAllProjects() {
+            return project_repository
+                .getAllProjects()
+                .then((data) => {
+                    console.log(data)
+                    this.data_list = data.map((item) => {
+                        item.branch_flow_string = item.branch_flow.join(' > ')
+                        item.repository_count = item.repository_list.length
+                        return item
+                    })
+                })
+        },
     },
 }
 </script>
