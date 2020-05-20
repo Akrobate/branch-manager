@@ -7,6 +7,12 @@ class ProjectRepository {
             .get(`${api_configuration.url}/projects`)
             .then((result) => result.data)
     }
+
+    getProject(project_id) {
+        return axios
+            .get(`${api_configuration.url}/projects/${project_id}/`)
+            .then((result) => result.data)
+    }
 }
 
 const project_repository = new ProjectRepository()
