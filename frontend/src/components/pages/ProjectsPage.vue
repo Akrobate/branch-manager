@@ -19,7 +19,7 @@
 
                     <md-chip>Static</md-chip>
 
-                    <md-chip class="md-accent" md-clickable v-on:click.stop="test()">Clickable</md-chip>
+                    <md-chip class="md-accent" md-clickable @click.prevent="test()">Clickable</md-chip>
 
                     <div class="md-list-action">
                         <md-button class="md-icon-button" >
