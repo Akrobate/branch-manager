@@ -3,7 +3,7 @@
         <h1 class="md-title">Projects</h1>
         <md-list class="md-triple-line">
             <div v-for="item in data_list" :key="item.name">
-                <md-list-item>
+                <md-list-item :to="{ name: 'ProjectPage', params: { project_id: item.id }}">
 
                     <md-avatar>
                         <img src="@/assets/github-logo.png" alt="Github Logo"/>
@@ -12,17 +12,17 @@
 
                     <div class="md-list-item-text">
                         <span>{{ item.name }}</span>
-                        <span>-</span>
-                        <p>-</p>
+                        <span>repositories: {{ item.repository_count }}</span>
+                        <p>{{ item.branch_flow_string }}</p>
                         <md-progress-bar v-if="false" md-mode="indeterminate"></md-progress-bar>
                     </div>
 
                     <md-chip>Static</md-chip>
 
-                    <md-chip class="md-accent" md-clickable>Clickable</md-chip>
+                    <md-chip class="md-accent" md-clickable v-on:click.stop="test()">Clickable</md-chip>
 
                     <div class="md-list-action">
-                        <md-button class="md-icon-button">
+                        <md-button class="md-icon-button" >
                             <md-icon class="md-primary">star</md-icon>
                         </md-button>
                         <md-button class="md-icon-button">
@@ -84,6 +84,9 @@ export default {
                         return item
                     })
                 })
+        },
+        test() {
+            console.log('clicked')
         },
     },
 }
