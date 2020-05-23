@@ -70,15 +70,13 @@ describe('ProjectRepository unit test', () => {
             .then((result) => {
                 expect(result).to.be.an('Array');
                 expect(result.length).to.be.gt(0);
-                const [
-                    first_result,
-                ] = result;
-                expect(first_result).to.be.an('Object');
-                expect(first_result).to.have.property('id', project_test_file_data.id);
-                expect(first_result).to.have.property('name', project_test_file_data.name);
-                expect(first_result).to.have.property('branch_flow');
-                expect(first_result.branch_flow).to.be.an('Array');
-                expect(first_result.repository_list).to.be.an('Array');
+                const found_result = result.find((item) => item.id === project_test_file_data.id);
+                expect(found_result).to.be.an('Object');
+                expect(found_result).to.have.property('id', project_test_file_data.id);
+                expect(found_result).to.have.property('name', project_test_file_data.name);
+                expect(found_result).to.have.property('branch_flow');
+                expect(found_result.branch_flow).to.be.an('Array');
+                expect(found_result.repository_list).to.be.an('Array');
                 done();
             })
             .catch(done);
