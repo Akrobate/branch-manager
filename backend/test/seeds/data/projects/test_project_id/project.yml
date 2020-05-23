@@ -3,7 +3,7 @@ name: Test project
 branch_flow:
   - branch: develop
     position: 0
-  - branche: master
+  - branch: master
     position: 1
 repository_list:
   - http_url: https://github.com/Akrobate/hexapod-robot.git
