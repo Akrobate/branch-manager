@@ -79,7 +79,10 @@ export default {
                 .then((data) => {
                     console.log(data)
                     this.data_list = data.map((item) => {
-                        item.branch_flow_string = item.branch_flow.join(' > ')
+                        item.branch_flow_string = item
+                            .branch_flow
+                            .map((flow_item) => flow_item.branch)
+                            .join(' > ')
                         item.repository_count = item.repository_list.length
                         return item
                     })
