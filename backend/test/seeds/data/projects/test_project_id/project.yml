@@ -1,4 +1,12 @@
 id: test_project_id
 name: Test project
-branch_flow: []
-repository_list: []
+branch_flow:
+  - branch: develop
+    position: 0
+  - branche: master
+    position: 1
+repository_list:
+  - http_url: https://github.com/Akrobate/hexapod-robot.git
+  - http_url: https://github.com/Akrobate/branch-manager.git
+  - http_url: https://gitlab.com/Akrobate/artiom-fedorov-resume.git
+  - http_url: https://framagit.org/Akrobate/jekyll-openscad-theme.git
