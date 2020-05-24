@@ -13,6 +13,7 @@ class GitCommandService {
         return GitCommandService.instance;
     }
 
+
     /**
      * @param {String} url
      * @return {String}
@@ -29,6 +30,27 @@ class GitCommandService {
     gitCheckout(branch) {
         return `git checkout ${branch}`;
     }
+
+
+    /**
+     * @param {String} origin
+     * @param {String} branch
+     * @return {String}
+     */
+    gitPull(origin, branch) {
+        return `git pull ${origin} ${branch}`;
+    }
+
+
+    /**
+     * @param {String} origin
+     * @param {String} branch
+     * @return {String}
+     */
+    gitFetchAllPrune() {
+        return 'git fetch --all --prune';
+    }
+
 }
 
 GitCommandService.instance = null;
