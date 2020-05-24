@@ -1,6 +1,6 @@
 const {
-    GitCommandService,
-} = require('./GitCommandService');
+    GitService,
+} = require('./GitService');
 
 const {
     CredentialService,
@@ -12,6 +12,6 @@ const {
 
 module.exports = {
     CredentialService,
-    GitCommandService,
+    GitService,
     ProjectService,
 };

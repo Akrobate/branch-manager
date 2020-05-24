@@ -1,16 +1,16 @@
 'use strict';
 
-class GitCommandService {
+class GitService {
 
     /* istanbul ignore next */
     /**
-     * @return {GitCommandService}
+     * @return {GitService}
      */
     static getInstance() {
-        if (GitCommandService.instance === null) {
-            GitCommandService.instance = new GitCommandService();
+        if (GitService.instance === null) {
+            GitService.instance = new GitService();
         }
-        return GitCommandService.instance;
+        return GitService.instance;
     }
 
 
@@ -18,7 +18,7 @@ class GitCommandService {
      * @param {String} url
      * @return {String}
      */
-    gitClone(url) {
+    clone(url) {
         return `git clone ${url}`;
     }
 
@@ -27,7 +27,7 @@ class GitCommandService {
      * @param {String} branch
      * @return {String}
      */
-    gitCheckout(branch) {
+    checkout(branch) {
         return `git checkout ${branch}`;
     }
 
@@ -37,7 +37,7 @@ class GitCommandService {
      * @param {String} branch
      * @return {String}
      */
-    gitPull(origin, branch) {
+    pull(origin, branch) {
         return `git pull ${origin} ${branch}`;
     }
 
@@ -47,14 +47,14 @@ class GitCommandService {
      * @param {String} branch
      * @return {String}
      */
-    gitFetchAllPrune() {
+    fetchAllPrune() {
         return 'git fetch --all --prune';
     }
 
 }
 
-GitCommandService.instance = null;
+GitService.instance = null;
 
 module.exports = {
-    GitCommandService,
+    GitService,
 };

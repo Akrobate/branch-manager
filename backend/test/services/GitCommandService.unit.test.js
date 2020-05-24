@@ -7,27 +7,27 @@ const {
 } = require('uuid');
 
 const {
-    GitCommandService,
+    GitService,
 } = require('../../src/services');
 
 
-describe('GitCommandService unit test', () => {
+describe('GitService unit test', () => {
 
     let git_command_service = null;
 
     before(() => {
-        git_command_service = GitCommandService
+        git_command_service = GitService
             .getInstance();
     });
 
-    it('GitClone', () => {
+    it('clone', () => {
         const url = v4();
-        expect(git_command_service.gitClone(url)).to.equal(`git clone ${url}`);
+        expect(git_command_service.clone(url)).to.equal(`git clone ${url}`);
     });
 
-    it('gitCheckout', () => {
+    it('checkout', () => {
         const branch = v4();
-        expect(git_command_service.gitCheckout(branch)).to.equal(`git checkout ${branch}`);
+        expect(git_command_service.checkout(branch)).to.equal(`git checkout ${branch}`);
     });
 
 });
