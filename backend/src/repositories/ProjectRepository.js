@@ -119,7 +119,8 @@ class ProjectRepository {
             // create project directory
             .createDirectory(directory)
             // write configuration file
-            .then(() => this.file_system_repository.writeYamlFile(configuration_file, project));
+            .then(() => this.file_system_repository.writeYamlFile(configuration_file, project))
+            .then(() => this.file_system_repository.createDirectory(`${directory}/repositories`));
     }
 
     /**
