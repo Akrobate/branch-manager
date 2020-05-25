@@ -26,6 +26,15 @@ class ProjectRepository {
 
 
     /**
+     * @static
+     * @return {String}
+     */
+    static get PROJECTS_REPOSITORIES_DIR_NAME() {
+        return 'repositories';
+    }
+
+
+    /**
      * @return {String}
      */
     getProjectsDirnamePath() {
@@ -120,7 +129,9 @@ class ProjectRepository {
             .createDirectory(directory)
             // write configuration file
             .then(() => this.file_system_repository.writeYamlFile(configuration_file, project))
-            .then(() => this.file_system_repository.createDirectory(`${directory}/repositories`));
+            .then(() => this.file_system_repository
+                .createDirectory(`${directory}/${ProjectRepository.PROJECTS_REPOSITORIES_DIR_NAME}`)
+            );
     }
 
     /**
