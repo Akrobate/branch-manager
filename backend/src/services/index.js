@@ -10,8 +10,13 @@ const {
     ProjectService,
 } = require('./ProjectService');
 
+const {
+    ProcessService,
+} = require('./ProcessService');
+
 module.exports = {
     CredentialService,
     GitService,
     ProjectService,
+    ProcessService,
 };
