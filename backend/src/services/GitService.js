@@ -1,5 +1,7 @@
 'use strict';
 
+const public_suffix_list = require('psl');
+
 class GitService {
 
     /* istanbul ignore next */
@@ -49,6 +51,29 @@ class GitService {
      */
     fetchAllPruneCommand() {
         return 'git fetch --all --prune';
+    }
+
+    /**
+     * @param {String} url
+     * @return {String}
+     */
+    getRepositoryDomainFromUrl(url) {
+        let hostname = '';
+        if (url.indexOf('//') > -1) {
+            // eslint-disable-next-line prefer-destructuring
+            hostname = url.split('/')[2];
+        } else {
+            // eslint-disable-next-line prefer-destructuring
+            hostname = url.split('/')[0];
+        }
+
+        // eslint-disable-next-line prefer-destructuring
+        hostname = hostname.split(':')[0];
+
+        // eslint-disable-next-line prefer-destructuring
+        hostname = hostname.split('?')[0];
+
+        return public_suffix_list.get(hostname);
     }
 
 }
