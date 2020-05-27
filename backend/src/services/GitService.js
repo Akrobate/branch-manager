@@ -18,7 +18,7 @@ class GitService {
      * @param {String} url
      * @return {String}
      */
-    clone(url) {
+    cloneCommand(url) {
         return `git clone ${url}`;
     }
 
@@ -27,7 +27,7 @@ class GitService {
      * @param {String} branch
      * @return {String}
      */
-    checkout(branch) {
+    checkoutCommand(branch) {
         return `git checkout ${branch}`;
     }
 
@@ -37,7 +37,7 @@ class GitService {
      * @param {String} branch
      * @return {String}
      */
-    pull(origin, branch) {
+    pullCommand(origin, branch) {
         return `git pull ${origin} ${branch}`;
     }
 
@@ -47,7 +47,7 @@ class GitService {
      * @param {String} branch
      * @return {String}
      */
-    fetchAllPrune() {
+    fetchAllPruneCommand() {
         return 'git fetch --all --prune';
     }
 

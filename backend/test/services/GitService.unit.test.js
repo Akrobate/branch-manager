@@ -22,22 +22,22 @@ describe('GitService unit test', () => {
 
     it('clone', () => {
         const url = v4();
-        expect(git_service.clone(url)).to.equal(`git clone ${url}`);
+        expect(git_service.cloneCommand(url)).to.equal(`git clone ${url}`);
     });
 
     it('checkout', () => {
         const branch = v4();
-        expect(git_service.checkout(branch)).to.equal(`git checkout ${branch}`);
+        expect(git_service.checkoutCommand(branch)).to.equal(`git checkout ${branch}`);
     });
 
     it('pull', () => {
         const branch = v4();
         const origin = v4();
-        expect(git_service.pull(origin, branch)).to.equal(`git pull ${origin} ${branch}`);
+        expect(git_service.pullCommand(origin, branch)).to.equal(`git pull ${origin} ${branch}`);
     });
 
     it('fetchAllPrune', () => {
-        expect(git_service.fetchAllPrune()).to.equal('git fetch --all --prune');
+        expect(git_service.fetchAllPruneCommand()).to.equal('git fetch --all --prune');
     });
 
 });
