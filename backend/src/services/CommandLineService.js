@@ -20,21 +20,26 @@ class CommandLineService {
 
     /**
      * @param {String} command
+     * @param {String} workgind_directory
      * @return {String}
      */
-    run(command) {
+    run(command, workgind_directory) {
         return new Promise(
-            (resolve, reject) => exec(command, (error, stdout, stderr) => {
-                if (error) {
-                    console.log(`error: ${error.message}`);
-                    return reject(error);
+            (resolve, reject) => exec(
+                command,
+                workgind_directory,
+                (error, stdout, stderr) => {
+                    if (error) {
+                        console.log(`error: ${error.message}`);
+                        return reject(error);
+                    }
+                    if (stderr) {
+                        console.log(`stderr: ${stderr}`);
+                        return reject(new Error(stderr));
+                    }
+                    return resolve(stdout);
                 }
-                if (stderr) {
-                    console.log(`stderr: ${stderr}`);
-                    return reject(new Error(stderr));
-                }
-                return resolve(stdout);
-            })
+            )
         );
     }
 
