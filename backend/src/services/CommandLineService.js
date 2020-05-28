@@ -4,6 +4,10 @@ const {
     exec,
 } = require('child_process');
 
+const {
+    logger,
+} = require('../logger');
+
 class CommandLineService {
 
     /* istanbul ignore next */
@@ -30,11 +34,11 @@ class CommandLineService {
                 workgind_directory,
                 (error, stdout, stderr) => {
                     if (error) {
-                        console.log(`error: ${error.message}`);
+                        logger.log(`error: ${error.message}`);
                         return reject(error);
                     }
                     if (stderr) {
-                        console.log(`stderr: ${stderr}`);
+                        logger.log(`stderr: ${stderr}`);
                         return reject(new Error(stderr));
                     }
                     return resolve(stdout);
