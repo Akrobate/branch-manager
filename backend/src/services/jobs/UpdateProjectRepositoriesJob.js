@@ -1,25 +1,36 @@
 'use strict';
 
-class UpdateProjectRepositoriesJob {
+const {
+    AbstractJob,
+} = require('./AbstractJob');
+
+class UpdateProjectRepositoriesJob extends AbstractJob {
 
     /**
      * @param {String} project_id
      * @returns {UpdateProjectRepositoriesJob}
      */
-    constructor(project_id) {
-        this.job_status = 'idle';
-        this.job_status = project_id;
+    constructor() {
+        super();
+        this.project_id = null;
     }
+
 
     /**
      * @param {String} url
      * @return {String}
      */
     process() {
-        this.job_status = 'running';
         // code to process goes here
+    }
 
-        this.job_status = 'finished';
+
+    /**
+     * @param {String} project_id
+     * @returns {Void}
+     */
+    setProjectId(project_id) {
+        this.project_id = project_id;
     }
 
 }
