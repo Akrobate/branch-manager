@@ -24,6 +24,15 @@ class AbstractJob {
 
 
     /**
+     * @throws {Error}
+     * @returns {Void}
+     */
+    process() {
+        throw new Error('Process method must be overriden in AbstractJob');
+    }
+
+
+    /**
      *
      * @param {Integer} status
      * @returns {Void}
