@@ -28,10 +28,22 @@ class ProcessService {
      * @return {String}
      */
     process() {
-        this.is_processing = true;
-
-        // code to process goes here
-        this.is_processing = false;
+        return new Promise((resolve, reject) => {
+            if (this.is_processing()) {
+                return reject(new Error('BUSY_PROCESSOR'));
+            }
+            this.is_processing = true;
+            return this
+                .executeJobsInQueue()
+                .then(() => {
+                    this.is_processing = false;
+                    return resolve();
+                })
+                .catch((error) => {
+                    this.is_processing = false;
+                    return reject(error);
+                });
+        });
     }
 
 

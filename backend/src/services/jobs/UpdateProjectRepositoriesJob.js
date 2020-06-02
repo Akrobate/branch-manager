@@ -4,20 +4,36 @@ const {
     AbstractJob,
 } = require('./AbstractJob');
 
+const {
+    ProjectService,
+} = require('../ProjectService');
+
 class UpdateProjectRepositoriesJob extends AbstractJob {
 
     /**
-     * @param {String} project_id
+     * @param {ProjectService} project_service
      * @returns {UpdateProjectRepositoriesJob}
      */
-    constructor() {
+    constructor(project_service) {
         super();
+        this.project_service = project_service;
+
         this.project_id = null;
     }
 
 
     /**
-     * @param {String} url
+     * @static
+     * @returns {UpdateProjectRepositoriesJob}
+     */
+    static buildJob() {
+        return new UpdateProjectRepositoriesJob(
+            ProjectService.getInstance()
+        );
+    }
+
+
+    /**
      * @return {String}
      */
     process() {
@@ -34,8 +50,6 @@ class UpdateProjectRepositoriesJob extends AbstractJob {
     }
 
 }
-
-UpdateProjectRepositoriesJob.instance = null;
 
 module.exports = {
     UpdateProjectRepositoriesJob,
