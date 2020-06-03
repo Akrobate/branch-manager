@@ -5,6 +5,10 @@ const {
 } = require('./AbstractJob');
 
 const {
+    logger,
+} = require('../../logger');
+
+const {
     ProjectService,
 } = require('../ProjectService');
 
@@ -17,7 +21,6 @@ class UpdateProjectRepositoriesJob extends AbstractJob {
     constructor(project_service) {
         super();
         this.project_service = project_service;
-
         this.project_id = null;
     }
 
@@ -38,6 +41,11 @@ class UpdateProjectRepositoriesJob extends AbstractJob {
      */
     process() {
         // code to process goes here
+        this.project_service
+            .getProject(this.project_id)
+            .then((project_data) => {
+                logger.log(project_data);
+            });
     }
 
 
