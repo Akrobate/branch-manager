@@ -37,11 +37,12 @@ class UpdateProjectRepositoriesJob extends AbstractJob {
 
 
     /**
-     * @return {String}
+     * @return {Promise}
      */
     process() {
         // code to process goes here
-        this.project_service
+        return this
+            .project_service
             .getProject(this.project_id)
             .then((project_data) => {
                 logger.log(project_data);
