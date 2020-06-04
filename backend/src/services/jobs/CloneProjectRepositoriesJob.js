@@ -5,19 +5,38 @@ const {
 } = require('./AbstractJob');
 
 const {
+    logger,
+} = require('../../logger');
+
+const {
     ProjectService,
 } = require('../ProjectService');
+
+const {
+    CommandLineService,
+} = require('../CommandLineService');
+
+const {
+    GitService,
+} = require('../GitService');
 
 class CloneProjectRepositoriesJob extends AbstractJob {
 
     /**
      * @param {ProjectService} project_service
+     * @param {CommandLineService} command_line_service
+     * @param {GitService} git_service
      * @returns {CloneProjectRepositoriesJob}
      */
-    constructor(project_service) {
+    constructor(
+        project_service,
+        command_line_service,
+        git_service
+    ) {
         super();
         this.project_service = project_service;
-
+        this.command_line_service = command_line_service;
+        this.git_service = git_service;
         this.project_id = null;
     }
 
@@ -28,7 +47,9 @@ class CloneProjectRepositoriesJob extends AbstractJob {
      */
     static buildJob() {
         return new CloneProjectRepositoriesJob(
-            ProjectService.getInstance()
+            ProjectService.getInstance(),
+            CommandLineService.getInstance(),
+            GitService.getInstance()
         );
     }
 
@@ -38,6 +59,12 @@ class CloneProjectRepositoriesJob extends AbstractJob {
      */
     process() {
         // code to process goes here
+        return this
+            .project_service
+            .getProject(this.project_id)
+            .then((project_data) => {
+                logger.log(project_data);
+            });
     }
 
 
