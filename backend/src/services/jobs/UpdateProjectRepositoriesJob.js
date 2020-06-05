@@ -64,6 +64,10 @@ class UpdateProjectRepositoriesJob extends AbstractJob {
             .getProject(this.project_id)
             .then((project_data) => {
                 logger.log(project_data);
+            })
+            .then(() => this.getAllRepositories(this.project_id))
+            .then((repository_list) => {
+                logger.log(repository_list);
             });
     }
 
