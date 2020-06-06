@@ -8,6 +8,10 @@ const {
     ProcessService,
 } = require('../services');
 
+const {
+    UpdateProjectRepositoriesJob,
+} = require('../services/jobs');
+
 class ProjectService {
 
     /* istanbul ignore next */
@@ -63,8 +67,12 @@ class ProjectService {
      * @param {String} id
      * @returns {Promise<Object>}
      */
-    processProjectUpdateRepository(id){
-
+    processProjectUpdateRepository(id) {
+        const update_repositories_job = UpdateProjectRepositoriesJob.buildJob();
+        update_repositories_job.setProjectId(id);
+        return this.process_service
+            .addJob(update_repositories_job)
+            .process();
     }
 
 }
