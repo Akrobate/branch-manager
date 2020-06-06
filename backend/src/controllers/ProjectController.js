@@ -4,10 +4,6 @@ const {
     ProjectService,
 } = require('../services');
 
-const {
-    ProcessService,
-} = require('../services');
-
 class ProjectController {
 
     /* istanbul ignore next */
@@ -17,8 +13,7 @@ class ProjectController {
     static getInstance() {
         if (ProjectController.instance === null) {
             ProjectController.instance = new ProjectController(
-                ProjectService.getInstance(),
-                ProcessService.getInstance()
+                ProjectService.getInstance()
             );
         }
         return ProjectController.instance;
@@ -26,11 +21,9 @@ class ProjectController {
 
     /**
      * @param {ProjectService} project_service
-     * @param {ProcessService} process_service
      */
-    constructor(project_service, process_service) {
+    constructor(project_service) {
         this.project_service = project_service;
-        this.process_service = process_service;
     }
 
     /**
@@ -63,12 +56,12 @@ class ProjectController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    processUpdateProject(request, response) {
+    processProjectUpdateRepository(request, response) {
         const {
             id,
         } = request.params;
-        return this.process_service
-            .addJob(id)
+        return this.project_service
+            .processProjectUpdateRepository(id)
             .then((data) => response.json(data));
     }
 

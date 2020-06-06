@@ -4,6 +4,10 @@ const {
     ProjectRepository,
 } = require('../repositories');
 
+const {
+    ProcessService,
+} = require('../services');
+
 class ProjectService {
 
     /* istanbul ignore next */
@@ -13,7 +17,8 @@ class ProjectService {
     static getInstance() {
         if (ProjectService.instance === null) {
             ProjectService.instance = new ProjectService(
-                ProjectRepository.getInstance()
+                ProjectRepository.getInstance(),
+                ProcessService.getInstance()
             );
         }
         return ProjectService.instance;
@@ -21,9 +26,11 @@ class ProjectService {
 
     /**
      * @param {ProjectRepository} project_repository
+     * @param {ProcessService} process_service
      */
-    constructor(project_repository) {
+    constructor(project_repository, process_service) {
         this.project_repository = project_repository;
+        this.process_service = process_service;
     }
 
     /**
@@ -50,6 +57,14 @@ class ProjectService {
     getAllRepositories(id) {
         return this.project_repository
             .getAllRepositories(id);
+    }
+
+    /**
+     * @param {String} id
+     * @returns {Promise<Object>}
+     */
+    processProjectUpdateRepository(id){
+
     }
 
 }
