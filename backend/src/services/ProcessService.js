@@ -67,10 +67,11 @@ class ProcessService {
 
     /**
      * @param {JobAbstract} job
-     * @returns {Void}
+     * @returns {ProcessService}
      */
     addJob(job) {
         this.job_queue_list.push(job);
+        return this;
     }
 
 
