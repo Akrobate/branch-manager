@@ -25,9 +25,10 @@ const process_controller = ProcessController.getInstance();
 router.get('/credentials', (request, response) => credential_controller.getCredentials(request, response));
 
 router.get('/projects/:id', (request, response) => project_controller.getProject(request, response));
-router.get('/projects/:id/process/update', (request, response) => project_controller.processProjectUpdateRepository(request, response));
+router.post('/projects/:id/add-process/update', (request, response) => project_controller.addProcessProjectUpdateRepository(request, response));
 router.get('/projects', (request, response) => project_controller.getAllProjects(request, response));
 
 router.get('process/status', (request, response) => process_controller.getStatus(request, response));
+router.post('process/start', (request, response) => process_controller.process(request, response));
 
 module.exports = router;
