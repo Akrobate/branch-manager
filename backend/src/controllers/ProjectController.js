@@ -56,12 +56,12 @@ class ProjectController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    processProjectUpdateRepository(request, response) {
+    addProcessProjectUpdateRepository(request, response) {
         const {
             id,
         } = request.params;
         return this.project_service
-            .processProjectUpdateRepository(id)
+            .addProcessProjectUpdateRepository(id)
             .then((data) => response.json(data));
     }
 
