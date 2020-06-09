@@ -67,12 +67,11 @@ class ProjectService {
      * @param {String} id
      * @returns {Promise<Object>}
      */
-    processProjectUpdateRepository(id) {
+    addProcessProjectUpdateRepository(id) {
         const update_repositories_job = UpdateProjectRepositoriesJob.buildJob();
         update_repositories_job.setProjectId(id);
         return this.process_service
-            .addJob(update_repositories_job)
-            .process();
+            .addJob(update_repositories_job);
     }
 
 }
