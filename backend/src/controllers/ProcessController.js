@@ -19,12 +19,14 @@ class ProcessController {
         return ProcessController.instance;
     }
 
+
     /**
      * @param {ProcessService} process_service
      */
     constructor(process_service) {
         this.process_service = process_service;
     }
+
 
     /**
      * @param {Resquest} request
@@ -43,6 +45,23 @@ class ProcessController {
             );
     }
 
+
+    /**
+     * @param {Resquest} request
+     * @param {Response} response
+     * @returns {Promise<Object>}
+     */
+    process(request, response) {
+        return this.process_service
+            .process()
+            .then((is_processing) => response.json(
+                {
+                    status: {
+                        is_processing,
+                    },
+                })
+            );
+    }
 }
 
 ProcessController.instance = null;
