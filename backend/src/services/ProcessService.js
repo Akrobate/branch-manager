@@ -89,6 +89,14 @@ class ProcessService {
         return this.job_queue_list.length === 0;
     }
 
+
+    /**
+     * @returns {Array}
+     */
+    getProcessList() {
+        return this.job_queue_list;
+    }
+
 }
 
 ProcessService.instance = null;
