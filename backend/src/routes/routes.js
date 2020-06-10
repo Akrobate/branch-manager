@@ -28,6 +28,7 @@ router.get('/projects/:id', (request, response) => project_controller.getProject
 router.post('/projects/:id/add-process/update', (request, response) => project_controller.addProcessProjectUpdateRepository(request, response));
 router.get('/projects', (request, response) => project_controller.getAllProjects(request, response));
 
+router.get('process/list', (request, response) => process_controller.getProcessList(request, response));
 router.get('process/status', (request, response) => process_controller.getStatus(request, response));
 router.post('process/start', (request, response) => process_controller.process(request, response));
 
