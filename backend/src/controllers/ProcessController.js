@@ -51,6 +51,21 @@ class ProcessController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
+    getProcessList(request, response) {
+        const porcess_list = this.process_service.getProcessList();
+        return response.json(
+            {
+                porcess_list,
+            }
+        );
+    }
+
+
+    /**
+     * @param {Resquest} request
+     * @param {Response} response
+     * @returns {Promise<Object>}
+     */
     process(request, response) {
         return this.process_service
             .process()
