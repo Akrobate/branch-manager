@@ -6,11 +6,11 @@ const {
 
 const {
     ProcessService,
-} = require('../services');
+} = require('./ProcessService');
 
 const {
     UpdateProjectRepositoriesJob,
-} = require('../services/jobs');
+} = require('./jobs');
 
 class ProjectService {
 
