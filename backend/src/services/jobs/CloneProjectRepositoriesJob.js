@@ -53,22 +53,16 @@ class CloneProjectRepositoriesJob extends AbstractJob {
         );
     }
 
-
     /**
-     * @return {String}
+     * @return {Void}
      */
-    process() {
+    async process() {
         // code to process goes here
-        return this
-            .project_service
-            .getProject(this.project_id)
-            .then((project_data) => {
-                logger.log(project_data);
-            })
-            .then(() => this.getAllRepositories(this.project_id))
-            .then((repository_list) => {
-                logger.log(repository_list);
-            });
+        const project_data = await this.project_service.getProject(this.project_id);
+        logger.log(project_data);
+        const repository_list = await this.getAllRepositories(this.project_id);
+        logger.log(repository_list);
+        return null;
     }
 
 

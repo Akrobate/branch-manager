@@ -6,6 +6,7 @@ const {
 
 class CredentialService {
 
+
     /* istanbul ignore next */
     /**
      * @return {CredentialService}
@@ -19,6 +20,7 @@ class CredentialService {
         return CredentialService.instance;
     }
 
+
     /**
      * @param {GitCredentialRepository} git_credential_repository
      */
@@ -26,22 +28,23 @@ class CredentialService {
         this.git_credential_repository = git_credential_repository;
     }
 
+
     /**
      * @returns {Promise<Object>}
      */
     getCredentials() {
-        return this.git_credential_repository
-            .getCredentials();
+        return this.git_credential_repository.getCredentials();
     }
+
 
     /**
      * @param {Object} criteria
      * @returns {Promise<Object>}
      */
     search(criteria) {
-        return this.git_credential_repository
-            .search(criteria);
+        return this.git_credential_repository.search(criteria);
     }
+
 
     /**
      * @param {Integer} id
@@ -49,14 +52,12 @@ class CredentialService {
      * @returns {Promise<Object>}
      */
     updateCredential(id, input) {
-        return this.git_credential_repository
-            .updateCredential(Object.assign(
-                {},
-                input,
-                {
-                    id,
-                }
-            ));
+        return this.git_credential_repository.updateCredential(
+            {
+                ...input,
+                id,
+            }
+        );
     }
 
 }
