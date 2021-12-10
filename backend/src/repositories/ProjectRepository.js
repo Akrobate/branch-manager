@@ -69,33 +69,29 @@ class ProjectRepository {
         this.list_object_repository = list_object_repository;
     }
 
+
     /**
      * @return {Object}
      */
-    getAllProjects() {
-        return this
-            .file_system_repository
-            .listDirectory(this.getProjectsDirnamePath())
-            .then((listed_dir_content) => listed_dir_content
-                .filter((item) => item !== '.gitignore'))
-            .then((project_directory_list) => Promise.map(
-                project_directory_list,
-                (project_id) => this.getProject(project_id)
-            ));
+    async getAllProjects() {
+        const listed_dir_content = await this.file_system_repository.listDirectory(this.getProjectsDirnamePath());
+        const project_directory_list = listed_dir_content.filter((item) => item !== '.gitignore');
+        return Promise.map(
+            project_directory_list,
+            (project_id) => this.getProject(project_id)
+        );
     }
+
 
     /**
      * @param {*} criteria
      * @return {Promise<Array>}
      */
-    searchProject(criteria) {
-        return this
-            .getAllProjects()
-            .then((project_list) => this
-                .list_object_repository
-                .search(criteria, project_list)
-            );
+    async searchProject(criteria) {
+        const project_list = await this.getAllProjects();
+        return this.list_object_repository.search(criteria, project_list);
     }
+
 
     /**
      * @param {String} id
@@ -107,11 +103,12 @@ class ProjectRepository {
             .readYamlFile(`${directory}/project.yml`);
     }
 
+
     /**
      * @param {String} project_name
      * @return {Promise}
      */
-    createProject(project_name) {
+    async createProject(project_name) {
 
         const id = v4();
         const directory = `${this.getProjectsDirnamePath()}${id}`;
@@ -124,15 +121,11 @@ class ProjectRepository {
             repository_list: [],
         };
 
-        return this.file_system_repository
-            // create project directory
-            .createDirectory(directory)
-            // write configuration file
-            .then(() => this.file_system_repository.writeYamlFile(configuration_file, project))
-            .then(() => this.file_system_repository
-                .createDirectory(`${directory}/${ProjectRepository.PROJECTS_REPOSITORIES_DIR_NAME}`)
-            );
+        await this.file_system_repository.createDirectory(directory);
+        await this.file_system_repository.writeYamlFile(configuration_file, project);
+        return this.file_system_repository.createDirectory(`${directory}/${ProjectRepository.PROJECTS_REPOSITORIES_DIR_NAME}`);
     }
+
 
     /**
      * @param {String} id

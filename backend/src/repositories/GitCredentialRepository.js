@@ -78,9 +78,9 @@ class GitCredentialRepository {
      * @param {Object} criteria
      * @return {Array<Object>}
      */
-    search(criteria) {
-        return this.getCredentials()
-            .then((credential_list) => this.list_object_repository.search(criteria, credential_list));
+    async search(criteria) {
+        const credential_list = await this.getCredentials();
+        return this.list_object_repository.search(criteria, credential_list);
     }
 
     /**
