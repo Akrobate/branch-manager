@@ -39,10 +39,9 @@ class FileSystemRepository {
      * @param {String} file
      * @return {Promise}
      */
-    readYamlFile(file) {
-        return this
-            .readFile(file)
-            .then((data) => yaml.parse(data));
+    async readYamlFile(file) {
+        const data = await this.readFile(file);
+        return yaml.parse(data);
     }
 
     /**

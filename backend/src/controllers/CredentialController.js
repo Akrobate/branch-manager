@@ -31,10 +31,9 @@ class CredentialController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    getCredentials(request, response) {
-        return this.credential_service
-            .getCredentials()
-            .then((data) => response.json(data));
+    async getCredentials(request, response) {
+        const data = await this.credential_service.getCredentials();
+        return response.json(data);
     }
 
 }

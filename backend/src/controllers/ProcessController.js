@@ -33,16 +33,13 @@ class ProcessController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    getStatus(request, response) {
-        return this.process_service
-            .isProcessing()
-            .then((is_processing) => response.json(
-                {
-                    status: {
-                        is_processing,
-                    },
-                })
-            );
+    async getStatus(request, response) {
+        const is_processing = await this.process_service.isProcessing();
+        return response.json({
+            status: {
+                is_processing,
+            },
+        });
     }
 
 
@@ -66,16 +63,13 @@ class ProcessController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    process(request, response) {
-        return this.process_service
-            .process()
-            .then((is_processing) => response.json(
-                {
-                    status: {
-                        is_processing,
-                    },
-                })
-            );
+    async process(request, response) {
+        const is_processing = await this.process_service.process();
+        return response.json({
+            status: {
+                is_processing,
+            },
+        });
     }
 }
 

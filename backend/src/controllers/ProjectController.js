@@ -31,10 +31,9 @@ class ProjectController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    getAllProjects(request, response) {
-        return this.project_service
-            .getAllProjects()
-            .then((data) => response.json(data));
+    async getAllProjects(request, response) {
+        const data = await this.project_service.getAllProjects();
+        return response.json(data);
     }
 
     /**
@@ -42,13 +41,12 @@ class ProjectController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    getProject(request, response) {
+    async getProject(request, response) {
         const {
             id,
         } = request.params;
-        return this.project_service
-            .getProject(id)
-            .then((data) => response.json(data));
+        const data = await this.project_service.getProject(id);
+        return response.json(data);
     }
 
     /**
@@ -56,13 +54,12 @@ class ProjectController {
      * @param {Response} response
      * @returns {Promise<Object>}
      */
-    addProcessProjectUpdateRepository(request, response) {
+    async addProcessProjectUpdateRepository(request, response) {
         const {
             id,
         } = request.params;
-        return this.project_service
-            .addProcessProjectUpdateRepository(id)
-            .then((data) => response.json(data));
+        const data = await this.project_service.addProcessProjectUpdateRepository(id);
+        return response.json(data);
     }
 
 }
