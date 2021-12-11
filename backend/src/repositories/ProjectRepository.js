@@ -148,18 +148,16 @@ class ProjectRepository {
      * @param {Object} repository
      * @return {Promise<Object>}
      */
-    addRepository(project_id, repository) {
+    async addRepository(project_id, repository) {
         // @todo Define repository object
-        return this.getAllRepositories(project_id)
-            .then((repository_list) => repository_list.push(repository))
-            .then((repository_list) => this
-                .updateProject(
-                    project_id,
-                    {
-                        repository_list,
-                    }
-                )
-            );
+        const repository_list = await this.getAllRepositories(project_id);
+        repository_list.push(repository);
+        return this.updateProject(
+            project_id,
+            {
+                repository_list,
+            }
+        );
     }
 
     /**
@@ -167,9 +165,9 @@ class ProjectRepository {
      * @param {Object} repository
      * @return {Promise<Array>}
      */
-    getAllRepositories(project_id) {
-        return this.getProject(project_id)
-            .then((project) => project.repository_list);
+    async getAllRepositories(project_id) {
+        const project = await this.getProject(project_id);
+        return project.repository_list;
     }
 
 }
