@@ -132,13 +132,15 @@ class ProjectRepository {
      * @param {Object} project
      * @return {Promise}
      */
-    updateProject(id, project) {
+    async updateProject(id, project) {
         const directory = `${this.getProjectsDirnamePath()}${id}`;
         const configuration_file = `${directory}/project.yml`;
-        return this
-            .getProject(id)
-            .then((saved_project) => Object.assign({}, saved_project, project))
-            .then((updated_project) => this.file_system_repository.writeYamlFile(configuration_file, updated_project));
+        const saved_project = await this.getProject(id);
+        const updated_project = {
+            ...saved_project,
+            ...project,
+        };
+        return this.file_system_repository.writeYamlFile(configuration_file, updated_project);
     }
 
     /**
