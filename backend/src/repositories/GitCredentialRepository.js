@@ -105,30 +105,26 @@ class GitCredentialRepository {
         return input;
     }
 
+
     /**
      * @param {Object} input
      * @return {Object}
      */
-    deleteCredential(input) {
+    async deleteCredential(input) {
         const {
             id,
         } = input;
-        return new Promise((resolve, reject) => {
-            if (id === undefined || id === null) {
-                return reject(new Error('Cannot delete with empty ID'));
-            }
-            return this.getCredentials()
-                .then((credential_list) => {
-                    const update_result = this.list_object_repository.delete(id, credential_list);
-                    if (update_result !== false) {
-                        return update_result;
-                    }
-                    return reject(new Error(`Cannot find element with ID: ${id}`));
-                })
-                .then((data) => this.saveCredentials(data))
-                .then(() => resolve(input));
-        });
 
+        if (id === undefined || id === null) {
+            throw new Error('Cannot update with empty ID');
+        }
+        const credential_list = await this.getCredentials();
+        const update_result = this.list_object_repository.delete(id, credential_list);
+        if (update_result !== false) {
+            throw new Error(`Cannot find element with ID: ${id}`);
+        }
+        await this.saveCredentials(update_result);
+        return input;
     }
 
 }
