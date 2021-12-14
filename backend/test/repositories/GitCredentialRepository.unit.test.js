@@ -61,32 +61,26 @@ describe('GitCredentialRepository unit test', () => {
         expect(git_credential_repository.getGitCredentialFileName()).to.equal('credentials.yml');
     });
 
-    it('getCredentials', (done) => {
+    it('getCredentials', async (done) => {
         mocks.git_credential_repository.expects('getGitCredentialFileName')
             .once()
             .returns(credential_test_file_name);
 
-        git_credential_repository
-            .getCredentials()
-            .then((data) => {
-                expect(data).to.deep.equal(credential_test_file_data);
-                done();
-            });
+        const data = await git_credential_repository.getCredentials();
+        expect(data).to.deep.equal(credential_test_file_data);
+        done();
     });
 
-    it('saveCredentials', (done) => {
+    it('saveCredentials', async (done) => {
         credential_test_file_data[0].key_1 = 'Updated_property';
         mocks.git_credential_repository.expects('getGitCredentialFileName')
             .twice()
             .returns(credential_test_file_name);
 
-        git_credential_repository
-            .saveCredentials(credential_test_file_data)
-            .then(() => git_credential_repository.getCredentials())
-            .then((data) => {
-                expect(data).to.deep.equal(credential_test_file_data);
-                done();
-            });
+        await git_credential_repository.saveCredentials(credential_test_file_data);
+        const data = await git_credential_repository.getCredentials();
+        expect(data).to.deep.equal(credential_test_file_data);
+        done();
     });
 });
 
