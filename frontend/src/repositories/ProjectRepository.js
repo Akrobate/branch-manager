@@ -2,16 +2,14 @@ import axios from 'axios'
 import api_configuration from '@/configurations/api'
 
 class ProjectRepository {
-    getAllProjects() {
-        return axios
-            .get(`${api_configuration.url}/projects`)
-            .then((result) => result.data)
+    async getAllProjects() {
+        const result = await axios.get(`${api_configuration.url}/projects`)
+        return result.data
     }
 
-    getProject(project_id) {
-        return axios
-            .get(`${api_configuration.url}/projects/${project_id}/`)
-            .then((result) => result.data)
+    async getProject(project_id) {
+        const result = await axios.get(`${api_configuration.url}/projects/${project_id}/`)
+        return result.data
     }
 }
 

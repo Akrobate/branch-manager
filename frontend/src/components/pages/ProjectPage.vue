@@ -29,16 +29,13 @@ export default {
         }
     },
     methods: {
-        loadProject(project_id) {
-            return project_repository
-                .getProject(project_id)
-                .then((data) => {
-                    console.log(data)
-                    this.id = data.id
-                    this.name = data.name
-                    this.branch_flow = data.branch_flow
-                    this.repository_list = data.repository_list
-                })
+        async loadProject(project_id) {
+            const data = await project_repository.getProject(project_id)
+            console.log(data)
+            this.id = data.id
+            this.name = data.name
+            this.branch_flow = data.branch_flow
+            this.repository_list = data.repository_list
         },
     },
 }

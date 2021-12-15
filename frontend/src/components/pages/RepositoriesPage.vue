@@ -51,12 +51,9 @@ export default {
     name: 'RepositoriesPage',
     components: {
     },
-    mounted() {
-        project_repository
-            .getProject(this.project_id)
-            .then((data) => {
-                this.data_list = data.repository_list
-            })
+    async mounted() {
+        const data = await project_repository.getProject(this.project_id)
+        this.data_list = data.repository_list
     },
     data() {
         return {
