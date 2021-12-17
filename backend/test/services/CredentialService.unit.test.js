@@ -34,19 +34,16 @@ describe('CredentialService unit test', () => {
         mocks.git_credential_repository.restore();
     });
 
-    it('getCredentials', (done) => {
+    it('getCredentials', async (done) => {
 
         mocks.git_credential_repository.expects('getCredentials')
             .once()
             .returns(Promise.resolve([]));
 
-        credential_service
-            .getCredentials()
-            .then((data) => {
-                mocks.git_credential_repository.verify();
-                expect(data).to.be.an('Array');
-                done();
-            });
+        const data = await credential_service.getCredentials();
+        mocks.git_credential_repository.verify();
+        expect(data).to.be.an('Array');
+        done();
     });
 
     describe('Search', () => {
@@ -69,57 +66,43 @@ describe('CredentialService unit test', () => {
             },
         ];
 
-        it('Should be able to find with empty criteria', (done) => {
+        it('Should be able to find with empty criteria', async () => {
             mocks.git_credential_repository.expects('getCredentials')
                 .once()
                 .returns(Promise.resolve(credential_repository_data));
 
-            credential_service
-                .search()
-                .then((data) => {
-                    expect(data).to.be.an('Array');
-                    expect(data).to.deep.equal(credential_repository_data);
-                    done();
-                })
-                .catch(done);
+            const data = await credential_service.search();
+            expect(data).to.be.an('Array');
+            expect(data).to.deep.equal(credential_repository_data);
         });
 
-        it('Should result when elemnt found', (done) => {
+
+        it('Should result when elemnt found', async () => {
             mocks.git_credential_repository.expects('getCredentials')
                 .once()
                 .returns(Promise.resolve(credential_repository_data));
 
-            credential_service
-                .search({
-                    key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
-                })
-                .then((data) => {
-                    expect(data).to.be.an('Array');
-                    expect(data).to.deep.equal([
-                        credential_repository_data[1],
-                    ]);
-                    mocks.git_credential_repository.verify();
-                    done();
-                })
-                .catch(done);
+            const data = await credential_service.search({
+                key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
+            });
+            expect(data).to.be.an('Array');
+            expect(data).to.deep.equal([
+                credential_repository_data[1],
+            ]);
+            mocks.git_credential_repository.verify();
         });
 
-        it('Should not find result if unknown criteria is setted', (done) => {
+        it('Should not find result if unknown criteria is setted', async () => {
             mocks.git_credential_repository.expects('getCredentials')
                 .once()
                 .returns(Promise.resolve(credential_repository_data));
 
-            credential_service
-                .search({
-                    key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
-                    key_unknown: v4(),
-                })
-                .then((data) => {
-                    expect(data).to.be.an('Array');
-                    expect(data).to.deep.equal([]);
-                    done();
-                })
-                .catch(done);
+            const data = await credential_service.search({
+                key_2: 'SEARCH_VALUE_SHOULD_BE_FOUND',
+                key_unknown: v4(),
+            });
+            expect(data).to.be.an('Array');
+            expect(data).to.deep.equal([]);
         });
 
         it('Should return empty array if not found', (done) => {
