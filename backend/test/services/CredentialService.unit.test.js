@@ -105,22 +105,17 @@ describe('CredentialService unit test', () => {
             expect(data).to.deep.equal([]);
         });
 
-        it('Should return empty array if not found', (done) => {
+        it('Should return empty array if not found', async () => {
             mocks.git_credential_repository.expects('getCredentials')
                 .once()
                 .returns(Promise.resolve(credential_repository_data));
 
-            credential_service
-                .search({
-                    key_1: 'NOT_EXISTING_VALUE_IN_DATASET',
-                })
-                .then((data) => {
-                    expect(data).to.be.an('Array');
-                    expect(data).to.deep.equal([]);
-                    mocks.git_credential_repository.verify();
-                    done();
-                })
-                .catch(done);
+            const data = await credential_service.search({
+                key_1: 'NOT_EXISTING_VALUE_IN_DATASET',
+            });
+            expect(data).to.be.an('Array');
+            expect(data).to.deep.equal([]);
+            mocks.git_credential_repository.verify();
         });
     });
 
@@ -137,7 +132,7 @@ describe('CredentialService unit test', () => {
             },
         ];
 
-        it('Should be able to update', (done) => {
+        it('Should be able to update', async () => {
             mocks.git_credential_repository.expects('getCredentials')
                 .once()
                 .returns(Promise.resolve(credential_repository_data));
@@ -156,61 +151,52 @@ describe('CredentialService unit test', () => {
                     key_1: 'UPDATED_KEY_1',
                 }));
 
-            credential_service
-                .updateCredential(
-                    'THE_ID_TO_UPDATE',
-                    {
-                        key_1: 'UPDATED_KEY_1',
-                    }
-                )
-                .then(() => {
-                    mocks.git_credential_repository.verify();
-                    done();
-                });
+            await credential_service.updateCredential(
+                'THE_ID_TO_UPDATE',
+                {
+                    key_1: 'UPDATED_KEY_1',
+                }
+            );
+            mocks.git_credential_repository.verify();
         });
 
-        it('Should not be able to update if ID not exist', (done) => {
+        it('Should not be able to update if ID not exist', async (done) => {
 
             mocks.git_credential_repository.expects('getCredentials')
                 .returns(Promise.resolve(credential_repository_data));
 
-            credential_service
-                .updateCredential(
+            try {
+                await credential_service.updateCredential(
                     'NOT_EXISTING_ID',
                     {
                         key_1: 'UPDATED_KEY_1',
                     }
-                )
-                .then(() => {
-                    done('Should not be able to update');
-                })
-                .catch(() => {
-                    try {
-                        mocks.git_credential_repository.verify();
-                    } catch (error) {
-                        done(error);
-                    }
+                );
+                done('Should not be able to update');
+            } catch (error) {
+                try {
+                    mocks.git_credential_repository.verify();
                     done();
-                });
+                } catch (mock_error) {
+                    done(mock_error);
+                }
+            }
         });
 
-        it('Should not be able to update if ID is undefined', (done) => {
 
-            credential_service
-                .updateCredential(
+        it('Should not be able to update if ID is undefined', async (done) => {
+            try {
+                await credential_service.updateCredential(
                     undefined,
                     {
                         key_1: 'UPDATED_KEY_1',
                     }
-                )
-                .then(() => {
-                    done('Should not be able to update');
-                })
-                .catch(() => {
-                    done();
-                });
+                );
+                done('Should not be able to update');
+            } catch (error) {
+                done();
+            }
         });
-
     });
 });
 
