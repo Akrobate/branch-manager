@@ -61,14 +61,13 @@ describe('GitCredentialRepository unit test', () => {
         expect(git_credential_repository.getGitCredentialFileName()).to.equal('credentials.yml');
     });
 
-    it('getCredentials', async (done) => {
+    it('getCredentials', async () => {
         mocks.git_credential_repository.expects('getGitCredentialFileName')
             .once()
             .returns(credential_test_file_name);
 
         const data = await git_credential_repository.getCredentials();
         expect(data).to.deep.equal(credential_test_file_data);
-        done();
     });
 
     it('saveCredentials', async (done) => {
