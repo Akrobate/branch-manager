@@ -70,16 +70,14 @@ describe('GitCredentialRepository unit test', () => {
         expect(data).to.deep.equal(credential_test_file_data);
     });
 
-    it('saveCredentials', async (done) => {
+    it('saveCredentials', async () => {
         credential_test_file_data[0].key_1 = 'Updated_property';
         mocks.git_credential_repository.expects('getGitCredentialFileName')
             .twice()
             .returns(credential_test_file_name);
-
         await git_credential_repository.saveCredentials(credential_test_file_data);
         const data = await git_credential_repository.getCredentials();
         expect(data).to.deep.equal(credential_test_file_data);
-        done();
     });
 });
 

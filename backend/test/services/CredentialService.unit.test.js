@@ -34,7 +34,7 @@ describe('CredentialService unit test', () => {
         mocks.git_credential_repository.restore();
     });
 
-    it('getCredentials', async (done) => {
+    it('getCredentials', async () => {
 
         mocks.git_credential_repository.expects('getCredentials')
             .once()
@@ -43,7 +43,6 @@ describe('CredentialService unit test', () => {
         const data = await credential_service.getCredentials();
         mocks.git_credential_repository.verify();
         expect(data).to.be.an('Array');
-        done();
     });
 
     describe('Search', () => {
@@ -160,7 +159,7 @@ describe('CredentialService unit test', () => {
             mocks.git_credential_repository.verify();
         });
 
-        it('Should not be able to update if ID not exist', async (done) => {
+        it('Should not be able to update if ID not exist', async () => {
 
             mocks.git_credential_repository.expects('getCredentials')
                 .returns(Promise.resolve(credential_repository_data));
@@ -172,19 +171,13 @@ describe('CredentialService unit test', () => {
                         key_1: 'UPDATED_KEY_1',
                     }
                 );
-                done('Should not be able to update');
             } catch (error) {
-                try {
-                    mocks.git_credential_repository.verify();
-                    done();
-                } catch (mock_error) {
-                    done(mock_error);
-                }
+                mocks.git_credential_repository.verify();
             }
         });
 
 
-        it('Should not be able to update if ID is undefined', async (done) => {
+        it('Should not be able to update if ID is undefined', async () => {
             try {
                 await credential_service.updateCredential(
                     undefined,
@@ -192,9 +185,9 @@ describe('CredentialService unit test', () => {
                         key_1: 'UPDATED_KEY_1',
                     }
                 );
-                done('Should not be able to update');
+                return Promise.reject(new Error('Should not be able to update'));
             } catch (error) {
-                done();
+                return Promise.resolve();
             }
         });
     });
