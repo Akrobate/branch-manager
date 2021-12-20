@@ -50,18 +50,13 @@ class ProcessService {
     /**
      * @returns {Pormise}
      */
-    executeJobsInQueue() {
+    async executeJobsInQueue() {
         const job_to_execute = this.job_queue_list.shift();
         if (this.queueIsEmpty()) {
             return Promise.resolve();
         }
-        return new Promise(
-            (resolve, reject) => job_to_execute
-                .execute()
-                .then(() => this.executeJobsInQueue())
-                .then(resolve)
-                .catch(reject)
-        );
+        await job_to_execute.execute();
+        return this.executeJobsInQueue();
     }
 
 
