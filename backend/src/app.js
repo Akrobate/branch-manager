@@ -14,8 +14,12 @@ const {
     configuration,
 } = require('./configuration');
 
-server.listen(
-    configuration.getAppPort(),
-    () => logger.info(`Branch manager server listening port: ${configuration.getAppPort()}`)
-);
+const server_port = configuration.getAppPort();
+
+server
+    .listen(server_port,
+        () => {
+            logger.info(`Branch manager server listening port: ${server_port}`
+        })
+    );
 
