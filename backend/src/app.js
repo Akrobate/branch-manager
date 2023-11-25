@@ -1,25 +1,12 @@
-/* istanbul ignore file */
-
 'use strict';
 
-const {
-    logger,
-} = require('./logger');
+const cors = require('cors');
+const app = require('express')();
+const routes = require('./routes/routes');
 
-const {
-    server,
-} = require('./server');
+app.use(cors());
+app.use('/', routes);
 
-const {
-    configuration,
-} = require('./configuration');
-
-const server_port = configuration.getAppPort();
-
-server
-    .listen(server_port,
-        () => {
-            logger.info(`Branch manager server listening port: ${server_port}`
-        })
-    );
-
+module.exports = {
+    app,
+};
