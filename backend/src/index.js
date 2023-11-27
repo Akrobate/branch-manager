@@ -12,10 +12,10 @@ const {
 
 const {
     configuration,
-} = require('./configuration');
+} = require('./configuration/');
 
-app.listen(configuration.getAppPort(), () => {
-    logger.info(`Branch manager server listening port: ${server_port}`);
+app.listen(configuration.server.port, () => {
+    logger.info(`Branch manager server listening port: ${configuration.server.port}`);
 });
 
 
