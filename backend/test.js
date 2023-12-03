@@ -22,20 +22,19 @@ const simpleGit = require('simple-git');
     console.log(res);
 
     // Testing //
-    
-    git.raw(['log', '--pretty=format:%H %P %s']).exec((err, result) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
+    res = await git.raw(['log', '--pretty=format:%H__SPLIT_CHAR__%P__SPLIT_CHAR__%s']);
 
-        const commits = result.split('\n').map(commit => {
-            const [hash, parents, message] = commit.split(' ');
-            return { hash, parents: parents.split(','), message };
-        });
-
-        console.log(commits);
+    const commits = res.split('\n').map((commit) => {
+        const [hash, parents, message] = commit.split('__SPLIT_CHAR__');
+        return {
+            hash,
+            parents: parents ? parents.split(',') : [],
+            message,
+        };
     });
+
+    console.log(commits);
+
 })();
 
 
