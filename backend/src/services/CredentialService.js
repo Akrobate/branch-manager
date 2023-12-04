@@ -4,6 +4,15 @@ const {
     GitCredentialRepository,
 } = require('../repositories');
 
+
+/**
+ * git credential fields
+ * Git
+ * - id
+ * - name
+ * - url
+ * - git id_rsa file
+ */
 class CredentialService {
 
 
