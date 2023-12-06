@@ -1,5 +1,8 @@
 const simpleGit = require('simple-git');
+const path = require('path');
+const os = require('os');
 
+// GIT_SSH_COMMAND='ssh -i private_key_file -o IdentitiesOnly=yes' git clone user@host:repo.git
 
 (async () => {
 
@@ -38,3 +41,22 @@ const simpleGit = require('simple-git');
 })();
 
 
+async function cloneRepo() {
+
+    const projectKey = 'here';
+    const gitSSH = 'FILL YOUR SSH GIT ADDRESS';
+    const sourceDir = path.resolve(`${os.tmpdir()}/${projectKey}`);
+    const sshKnownHosts = path.resolve(`${process.cwd()}/settings/ssh/known_hosts`);
+    const sshKey = path.resolve(`${process.cwd()}/settings/ssh/id_ed25519`);
+
+    const GIT_SSH_COMMAND = `ssh -o UserKnownHostsFile=${sshKnownHosts} -o StrictHostKeyChecking=no -i ${sshKey}`;
+
+    console.log(sourceDir);
+
+    const git = simpleGit()
+        .env('GIT_SSH_COMMAND', GIT_SSH_COMMAND);
+
+    await git.clone(gitSSH, sourceDir, ['-b', 'YOUR-BRANCH-NAME', '--single-branch'])
+        .then(() => console.log('finished'))
+        .catch((err) => console.error('failed: ', err));
+}
