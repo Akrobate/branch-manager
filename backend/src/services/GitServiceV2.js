@@ -1,6 +1,7 @@
 'use strict';
 
-const public_suffix_list = require('psl');
+const simpleGit = require('simple-git');
+
 
 class GitService {
 
@@ -27,10 +28,19 @@ class GitService {
 
     /**
      * @param {String} branch
+     * @param {String} path_to_git
      * @return {String}
      */
-    checkoutCommand(branch) {
-        return `git checkout ${branch}`;
+    async checkoutCommand(branch, path_to_git) {
+
+        const git = simpleGit(path_to_git,
+            {
+                binary: 'git',
+            }
+        );
+
+        const result = await git.checkout(branch);
+        return result;
     }
 
 
@@ -53,28 +63,6 @@ class GitService {
         return 'git fetch --all --prune';
     }
 
-    /**
-     * @param {String} url
-     * @return {String}
-     */
-    getRepositoryDomainFromUrl(url) {
-        let hostname = '';
-        if (url.indexOf('//') > -1) {
-            // eslint-disable-next-line prefer-destructuring
-            hostname = url.split('/')[2];
-        } else {
-            // eslint-disable-next-line prefer-destructuring
-            hostname = url.split('/')[0];
-        }
-
-        // eslint-disable-next-line prefer-destructuring
-        hostname = hostname.split(':')[0];
-
-        // eslint-disable-next-line prefer-destructuring
-        hostname = hostname.split('?')[0];
-
-        return public_suffix_list.get(hostname);
-    }
 
 }
 
