@@ -48,9 +48,24 @@ class GitService {
      * @param {*} GIT_SSH_COMMAND
      * @return {String}
      */
-    async checkoutCommand(branch, path_to_git, GIT_SSH_COMMAND) {
+    async checkout(branch, path_to_git, GIT_SSH_COMMAND) {
         const git = this.buildGitInstance(path_to_git, GIT_SSH_COMMAND);
         const result = await git.checkout(branch);
+        return result;
+    }
+
+
+    /**
+     * @param {String} path_to_git
+     * @param {*} GIT_SSH_COMMAND
+     * @return {String}
+     */
+    async fetchAllPrune(path_to_git, GIT_SSH_COMMAND) {
+        const git = this.buildGitInstance(path_to_git, GIT_SSH_COMMAND);
+        const result = await git.fetch({
+            '--prune': null,
+            '--all': null,
+        });
         return result;
     }
 
@@ -63,17 +78,6 @@ class GitService {
     pullCommand(origin, branch) {
         return `git pull ${origin} ${branch}`;
     }
-
-
-    /**
-     * @param {String} origin
-     * @param {String} branch
-     * @return {String}
-     */
-    fetchAllPruneCommand() {
-        return 'git fetch --all --prune';
-    }
-
 
 }
 
