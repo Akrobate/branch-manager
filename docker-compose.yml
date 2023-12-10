@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/usr/app/
+    command: npm start
+    ports:
+      - ${BACKEND_API_PORT}:${BACKEND_API_PORT}
+    environment:
+      APPENV_SERVER_HOST: ${BACKEND_API_HOST}
+      APPENV_SERVER_PORT: ${BACKEND_API_PORT}
+    user: ${UID}:${GID}
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${BACKEND_API_HOST}:${BACKEND_API_PORT}
+    ports:
+      - ${FRONTEND_PORT}:80
