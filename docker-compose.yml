@@ -5,6 +5,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/usr/app/
+      - ./data:/usr/app/data
     command: npm start
     ports:
       - ${BACKEND_API_PORT}:${BACKEND_API_PORT}
