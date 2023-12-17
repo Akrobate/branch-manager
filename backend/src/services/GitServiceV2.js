@@ -34,11 +34,15 @@ class GitService {
 
 
     /**
-     * @param {String} url
+     * @param {String} git_url
+     * @param {String} path_to_git
+     * @param {*} GIT_SSH_COMMAND
      * @return {String}
      */
-    cloneCommand(url) {
-        return `git clone ${url}`;
+    async cloneCommand(git_url, path_to_git, GIT_SSH_COMMAND) {
+        const git = this.buildGitInstance(path_to_git, GIT_SSH_COMMAND);
+        const result = await git.clone(git_url, path_to_git);
+        return result;
     }
 
 
