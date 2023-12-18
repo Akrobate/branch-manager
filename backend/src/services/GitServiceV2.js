@@ -34,6 +34,16 @@ class GitService {
 
 
     /**
+     * @param {String} ssh_key_file_path
+     * @return {String}
+     */
+    generateSshCommand(ssh_key_file_path) {
+        const GIT_SSH_COMMAND = `ssh -o StrictHostKeyChecking=no -i ${ssh_key_file_path}`;
+        return GIT_SSH_COMMAND;
+    }
+
+
+    /**
      * @param {String} git_url
      * @param {String} path_to_git
      * @param {*} GIT_SSH_COMMAND
