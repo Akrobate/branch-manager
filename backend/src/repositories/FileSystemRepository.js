@@ -16,11 +16,29 @@ class FileSystemRepository {
         return FileSystemRepository.instance;
     }
 
+
+    /**
+     * @return {FileSystemRepository}
+     */
+    constructor() {
+        this.data_dir = `${__dirname}/../../data/`;
+    }
+
+
+    /**
+     * @param {String} data_dir
+     * @returns {void}
+     */
+    setDataDir(data_dir) {
+        this.data_dir = data_dir;
+    }
+
+
     /**
      * @return {String}
      */
     getDataDir() {
-        return `${__dirname}/../../data/`;
+        return this.data_dir;
     }
 
     /**
