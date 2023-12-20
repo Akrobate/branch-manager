@@ -23,13 +23,24 @@ class GitService {
      * @return {object}
      */
     buildGitInstance(path_to_git, GIT_SSH_COMMAND) {
-        return simpleGit(
-            path_to_git,
-            {
-                binary: 'git',
-            }
-        )
-            .env('GIT_SSH_COMMAND', GIT_SSH_COMMAND);
+
+        let git = null;
+        if (path_to_git) {
+            git = simpleGit(
+                path_to_git,
+                {
+                    binary: 'git',
+                }
+            );
+        } else {
+            git = simpleGit(
+                {
+                    binary: 'git',
+                }
+            );
+        }
+
+        return git.env('GIT_SSH_COMMAND', GIT_SSH_COMMAND);
     }
 
 
