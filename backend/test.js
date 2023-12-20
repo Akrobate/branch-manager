@@ -2,8 +2,23 @@ const simpleGit = require('simple-git');
 const path = require('path');
 const os = require('os');
 
+const {
+    GitService,
+} = require('./src/services/GitServiceV2');
+
+
+(async () => {
+
+    const git_service = GitService.getInstance();
+    const git = git_service.buildGitInstance();
+
+})();
+
+
+
 // GIT_SSH_COMMAND='ssh -i private_key_file -o IdentitiesOnly=yes' git clone user@host:repo.git
 
+/*
 (async () => {
 
 
@@ -60,3 +75,6 @@ async function cloneRepo() {
         .then(() => console.log('finished'))
         .catch((err) => console.error('failed: ', err));
 }
+
+
+*/
