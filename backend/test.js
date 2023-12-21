@@ -10,10 +10,20 @@ const {
 (async () => {
 
     const git_service = GitService.getInstance();
-    const git = git_service.buildGitInstance();
+
+    const git_url = '';
+    const path_to_git = '';
+    const ssh_key_file_path = '';
+
+    const GIT_SSH_COMMAND = git_service
+        .generateSshCommand(ssh_key_file_path);
+
+    const result = await git_service
+        .cloneCommand(git_url, path_to_git, GIT_SSH_COMMAND);
+
+    console.log(result);
 
 })();
-
 
 
 // GIT_SSH_COMMAND='ssh -i private_key_file -o IdentitiesOnly=yes' git clone user@host:repo.git
