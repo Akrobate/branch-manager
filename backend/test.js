@@ -11,8 +11,8 @@ const {
 
     const git_service = GitService.getInstance();
 
-    const git_url = '';
-    const path_to_git = '';
+    const git_url = 'git@github.com:Akrobate/jenkins-real-green-ball.git';
+    const path_to_git = './data/jenkins-real-green-ball';
     const ssh_key_file_path = '';
 
     const GIT_SSH_COMMAND = git_service
