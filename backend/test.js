@@ -13,7 +13,7 @@ const {
 
     const git_url = 'git@github.com:Akrobate/jenkins-real-green-ball.git';
     const path_to_git = './data/jenkins-real-green-ball';
-    const ssh_key_file_path = '';
+    const ssh_key_file_path = './data/rsa_keys/github_id_rsa_privaate';
 
     const GIT_SSH_COMMAND = git_service
         .generateSshCommand(ssh_key_file_path);
