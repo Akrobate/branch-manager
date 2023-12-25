@@ -9,17 +9,17 @@ const {
 
 (async () => {
 
+    // TEsted working
     const git_service = GitService.getInstance();
 
     const git_url = 'git@github.com:Akrobate/jenkins-real-green-ball.git';
     const path_to_git = './data/jenkins-real-green-ball';
-    const ssh_key_file_path = './data/rsa_keys/github_id_rsa_privaate';
+    const ssh_key_file_path = './data/rsa_keys/id_rsa_github_perso';
 
     const GIT_SSH_COMMAND = git_service
         .generateSshCommand(ssh_key_file_path);
 
     console.log('GIT_SSH_COMMAND', GIT_SSH_COMMAND);
-
 
     const result = await git_service
         .cloneCommand(git_url, path_to_git, GIT_SSH_COMMAND);

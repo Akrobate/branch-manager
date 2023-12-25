@@ -101,12 +101,22 @@ class FileSystemRepository {
         return fsPromised.rmdir(directory);
     }
 
+
     /**
      * @param {String} directory
      * @return {Promise}
      */
     listDirectory(directory) {
         return fsPromised.readdir(directory);
+    }
+
+
+    /**
+     * @param {String} path
+     * @returns {Boolean}
+     */
+    exists(path) {
+        return fs.existsSync(path);
     }
 }
 
