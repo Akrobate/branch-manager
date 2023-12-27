@@ -12,8 +12,14 @@ const {
     ProjectRepository,
 } = require('./ProjectRepository');
 
+const {
+    GitRepository,
+} = require('./GitRepository');
+
+
 module.exports = {
     FileSystemRepository,
     GitCredentialRepository,
+    GitRepository,
     ProjectRepository,
 };

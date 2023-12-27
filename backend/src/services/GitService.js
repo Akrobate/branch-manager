@@ -1,5 +1,9 @@
 'use strict';
 
+const {
+    GitRepository,
+} = require('../repositories');
+
 const public_suffix_list = require('psl');
 
 class GitService {
@@ -10,9 +14,19 @@ class GitService {
      */
     static getInstance() {
         if (GitService.instance === null) {
-            GitService.instance = new GitService();
+            GitService.instance = new GitService(
+                GitRepository.getInstance()
+            );
         }
         return GitService.instance;
+    }
+
+
+    /**
+     * @param {GitRepository} git_repository
+     */
+    constructor(git_repository) {
+        this.git_repository = git_repository;
     }
 
 
