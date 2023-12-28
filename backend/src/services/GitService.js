@@ -31,11 +31,19 @@ class GitService {
 
 
     /**
-     * @param {String} url
-     * @return {String}
+     * @param {String} git_url
+     * @param {String} path_to_git
+     * @param {String} ssh_key_file_path
+     * @returns {Promise}
      */
-    cloneCommand(url) {
-        return `git clone ${url}`;
+    clone(git_url, path_to_git, ssh_key_file_path) {
+        return this.git_repository
+            .clone(
+                git_url,
+                path_to_git,
+                this.git_repository
+                    .generateSshCommand(ssh_key_file_path)
+            );
     }
 
 
