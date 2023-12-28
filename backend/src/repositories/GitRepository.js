@@ -60,7 +60,7 @@ class GitRepository {
      * @param {*} GIT_SSH_COMMAND
      * @return {String}
      */
-    async cloneCommand(git_url, path_to_git, GIT_SSH_COMMAND) {
+    async clone(git_url, path_to_git, GIT_SSH_COMMAND) {
         const git = this.buildGitInstance(path_to_git, GIT_SSH_COMMAND);
         const result = await git.clone(git_url, path_to_git);
         return result;
