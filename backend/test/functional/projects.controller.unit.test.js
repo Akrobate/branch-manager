@@ -10,7 +10,7 @@ const {
 } = require('chai');
 
 const {
-    server,
+    app,
 } = require('../../src/app');
 
 const {
@@ -37,7 +37,7 @@ describe('Projects controller', () => {
             .atLeast(1)
             .returns(seeds_data_dir);
 
-        supertest(server)
+        supertest(app)
             .get('/projects')
             .expect(200)
             .end((error, result) => {
@@ -70,7 +70,7 @@ describe('Projects controller', () => {
             .returns(seeds_data_dir);
 
         const project_id = 'test_project_id';
-        supertest(server)
+        supertest(app)
             .get(`/projects/${project_id}`)
             .expect(200)
             .end((error, result) => {
