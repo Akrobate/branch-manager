@@ -11,7 +11,7 @@ const {
 
 const {
     server,
-} = require('../../src/server');
+} = require('../../src/app');
 
 const {
     FileSystemRepository,
