@@ -10,7 +10,7 @@ const {
 } = require('chai');
 
 const {
-    server,
+    app,
 } = require('../../src/app');
 
 const {
@@ -32,12 +32,13 @@ describe('Credentials controller', () => {
     });
 
     it('Should be able to list all credentials', (done) => {
+
         mocks.file_system_repository
             .expects('getDataDir')
             .atLeast(1)
             .returns(seeds_data_dir);
 
-        supertest(server)
+        supertest(app)
             .get('/credentials')
             .expect(200)
             .end((error, result) => {
