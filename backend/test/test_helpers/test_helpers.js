@@ -2,6 +2,13 @@
 
 const fs = require('fs');
 
-module.exports = {
+function cleanDataFolder() {
+    const test_data_workdir = './test/data/';
+    fs.unlinkSync(test_data_workdir);
 
+}
+
+
+module.exports = {
+    cleanDataFolder,
 };
