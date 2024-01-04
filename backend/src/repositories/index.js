@@ -16,10 +16,14 @@ const {
     GitRepository,
 } = require('./GitRepository');
 
+const {
+    ListObjectRepository,
+} = require('./ListObjectRepository');
 
 module.exports = {
     FileSystemRepository,
     GitCredentialRepository,
     GitRepository,
     ProjectRepository,
+    ListObjectRepository,
 };
