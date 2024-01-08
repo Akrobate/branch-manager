@@ -42,6 +42,7 @@ describe('Credentials controller', () => {
             .get('/credentials')
             .expect(200)
             .end((error, result) => {
+                console.log(result.body);
                 try {
                     expect(result).to.have.property('body');
                     expect(result.body).to.be.an('Array');

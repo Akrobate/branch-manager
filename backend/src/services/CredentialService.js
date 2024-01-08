@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-    GitCredentialRepository,
+    CredentialRepository,
 } = require('../repositories');
 
 
@@ -23,7 +23,7 @@ class CredentialService {
     static getInstance() {
         if (CredentialService.instance === null) {
             CredentialService.instance = new CredentialService(
-                GitCredentialRepository.getInstance()
+                CredentialRepository.getInstance()
             );
         }
         return CredentialService.instance;
@@ -31,7 +31,7 @@ class CredentialService {
 
 
     /**
-     * @param {GitCredentialRepository} git_credential_repository
+     * @param {CredentialRepository} git_credential_repository
      */
     constructor(git_credential_repository) {
         this.git_credential_repository = git_credential_repository;

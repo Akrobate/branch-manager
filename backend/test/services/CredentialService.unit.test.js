@@ -13,7 +13,7 @@ const {
 } = require('uuid');
 
 const {
-    GitCredentialRepository,
+    CredentialRepository,
 } = require('../../src/repositories');
 
 const {
@@ -27,7 +27,7 @@ describe('CredentialService unit test', () => {
 
     beforeEach(() => {
         credential_service = CredentialService.getInstance();
-        mocks.git_credential_repository = mock(GitCredentialRepository.getInstance());
+        mocks.git_credential_repository = mock(CredentialRepository.getInstance());
     });
 
     afterEach(() => {

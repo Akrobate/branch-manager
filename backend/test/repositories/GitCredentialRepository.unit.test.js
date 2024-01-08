@@ -17,10 +17,10 @@ const {
 } = require('uuid');
 
 const {
-    GitCredentialRepository,
+    CredentialRepository,
 } = require('../../src/repositories');
 
-describe('GitCredentialRepository unit test', () => {
+describe('CredentialRepository unit test', () => {
 
     let git_credential_repository = null;
     const credential_test_file_name = 'credentials_test.yaml';
@@ -40,7 +40,7 @@ describe('GitCredentialRepository unit test', () => {
 
     before(() => {
         fs.writeFileSync(`./data/${credential_test_file_name}`, yaml.stringify(credential_test_file_data, 4));
-        git_credential_repository = GitCredentialRepository
+        git_credential_repository = CredentialRepository
             .getInstance();
         mocks.git_credential_repository = mock(git_credential_repository);
     });

@@ -7,7 +7,7 @@ const {
     ListObjectRepository,
 } = require('./ListObjectRepository');
 
-class GitCredentialRepository {
+class CredentialRepository {
 
     /**
      * @static
@@ -19,16 +19,16 @@ class GitCredentialRepository {
 
     /* istanbul ignore next */
     /**
-     * @return {GitCredentialRepository}
+     * @return {CredentialRepository}
      */
     static getInstance() {
-        if (GitCredentialRepository.instance === null) {
-            GitCredentialRepository.instance = new GitCredentialRepository(
+        if (CredentialRepository.instance === null) {
+            CredentialRepository.instance = new CredentialRepository(
                 FileSystemRepository.getInstance(),
                 ListObjectRepository.getInstance()
             );
         }
-        return GitCredentialRepository.instance;
+        return CredentialRepository.instance;
     }
 
     /**
@@ -47,7 +47,7 @@ class GitCredentialRepository {
      * @return {String}
      */
     getGitCredentialFileName() {
-        return GitCredentialRepository.GIT_CREDENTIAL_FILE_NAME;
+        return CredentialRepository.GIT_CREDENTIAL_FILE_NAME;
     }
 
     /**
@@ -130,8 +130,8 @@ class GitCredentialRepository {
 }
 
 
-GitCredentialRepository.instance = null;
+CredentialRepository.instance = null;
 
 module.exports = {
-    GitCredentialRepository,
+    CredentialRepository,
 };

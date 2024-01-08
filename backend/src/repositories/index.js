@@ -5,8 +5,8 @@ const {
 } = require('./FileSystemRepository');
 
 const {
-    GitCredentialRepository,
-} = require('./GitCredentialRepository');
+    CredentialRepository,
+} = require('./CredentialRepository');
 
 const {
     ProjectRepository,
@@ -22,7 +22,7 @@ const {
 
 module.exports = {
     FileSystemRepository,
-    GitCredentialRepository,
+    CredentialRepository,
     GitRepository,
     ProjectRepository,
     ListObjectRepository,
