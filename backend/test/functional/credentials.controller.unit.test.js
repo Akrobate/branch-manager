@@ -17,11 +17,21 @@ const {
     FileSystemRepository,
 } = require('../../src/repositories');
 
-const seeds_data_dir = `${__dirname}/../seeds/data/`;
+const {
+    copyTestCredentialData,
+    cleanDataFolder,
+} = require('../test_helpers/test_helpers');
+
+const seeds_data_dir = `${__dirname}/../data/`;
 
 const mocks = {};
 
-describe('Credentials controller', () => {
+describe.only('Credentials controller', () => {
+
+    before(async () => {
+        await cleanDataFolder();
+        await copyTestCredentialData();
+    });
 
     beforeEach(() => {
         mocks.file_system_repository = mock(FileSystemRepository.getInstance());
