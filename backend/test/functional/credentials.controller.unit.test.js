@@ -26,6 +26,8 @@ const seeds_data_dir = `${__dirname}/../data/`;
 
 const mocks = {};
 
+const file_system_repository = FileSystemRepository.getInstance();
+
 describe.only('Credentials controller', () => {
 
     before(async () => {
@@ -34,7 +36,7 @@ describe.only('Credentials controller', () => {
     });
 
     beforeEach(() => {
-        mocks.file_system_repository = mock(FileSystemRepository.getInstance());
+        mocks.file_system_repository = mock(file_system_repository);
     });
 
     afterEach(() => {
@@ -43,16 +45,10 @@ describe.only('Credentials controller', () => {
 
     it('Should be able to list all credentials', (done) => {
 
-        mocks.file_system_repository
-            .expects('getDataDir')
-            .atLeast(1)
-            .returns(seeds_data_dir);
-
         supertest(app)
             .get('/credentials')
             .expect(200)
             .end((error, result) => {
-                console.log(result.body);
                 try {
                     expect(result).to.have.property('body');
                     expect(result.body).to.be.an('Array');
