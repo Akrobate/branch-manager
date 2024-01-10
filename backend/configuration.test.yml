@@ -2,4 +2,4 @@ server:
   port: 3000
 
 storage:
-  data_file_path: ../data
+  data_file_path: ./test/data/
