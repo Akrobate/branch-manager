@@ -1,7 +1,11 @@
 'use strict';
 
+const fs = require('fs');
 const fsPromised = require('fs').promises;
 const yaml = require('yamljs');
+const {
+    configuration,
+} = require('../configuration');
 
 class FileSystemRepository {
 
@@ -21,7 +25,7 @@ class FileSystemRepository {
      * @return {FileSystemRepository}
      */
     constructor() {
-        this.data_dir = `${__dirname}/../../data/`;
+        this.data_dir = configuration.storage.data_file_path;
     }
 
 

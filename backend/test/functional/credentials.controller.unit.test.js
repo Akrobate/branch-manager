@@ -20,9 +20,8 @@ const {
 const {
     copyTestCredentialData,
     cleanDataFolder,
+    copyProjectFolderData,
 } = require('../test_helpers/test_helpers');
-
-const seeds_data_dir = `${__dirname}/../data/`;
 
 const mocks = {};
 
@@ -33,6 +32,7 @@ describe.only('Credentials controller', () => {
     before(async () => {
         await cleanDataFolder();
         await copyTestCredentialData();
+        await copyProjectFolderData();
     });
 
     beforeEach(() => {
@@ -64,6 +64,5 @@ describe.only('Credentials controller', () => {
                 return done();
             });
     });
-
 
 });
