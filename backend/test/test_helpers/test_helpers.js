@@ -31,8 +31,20 @@ async function copyProjectFolderData() {
     );
 }
 
+
+async function copyPrivateFolderData() {
+    await fsPromises.cp(
+        './test/seeds/data/privates',
+        './test/data/privates',
+        {
+            recursive: true,
+        }
+    );
+}
+
 module.exports = {
     cleanDataFolder,
     copyTestCredentialData,
     copyProjectFolderData,
+    copyPrivateFolderData,
 };
