@@ -27,7 +27,7 @@ const mocks = {};
 
 const file_system_repository = FileSystemRepository.getInstance();
 
-describe.only('Credentials controller', () => {
+describe('Credentials controller', () => {
 
     before(async () => {
         await cleanDataFolder();
@@ -49,6 +49,9 @@ describe.only('Credentials controller', () => {
             .get('/credentials')
             .expect(200)
             .end((error, result) => {
+                if (error) {
+                    return done(error);
+                }
                 try {
                     expect(result).to.have.property('body');
                     expect(result.body).to.be.an('Array');
@@ -57,6 +60,11 @@ describe.only('Credentials controller', () => {
                         first_result,
                     ] = result.body;
                     expect(first_result).to.be.an('Object');
+
+                    expect(first_result).to.have.property('id');
+                    expect(first_result).to.have.property('name');
+                    expect(first_result).to.have.property('private_id_rsa_file');
+
                     mocks.file_system_repository.verify();
                 } catch (err) {
                     return done(err);
