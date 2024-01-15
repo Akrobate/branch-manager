@@ -15,51 +15,20 @@ const {
 } = require('chai');
 
 const {
-    mock,
-} = require('sinon');
-
-const {
-    v4,
-} = require('uuid');
-
-const {
     CredentialRepository,
 } = require('../../src/repositories');
 
-describe('CredentialRepository unit test', () => {
+describe.only('CredentialRepository unit test', () => {
 
-    let credential_repository = null;
+    const credential_repository = CredentialRepository.getInstance();
     const credential_test_file_name = 'credentials_test.yaml';
-    const credential_test_file_data = [
-        {
-            key_1: v4(),
-            key_2: v4(),
-            key_3: v4(),
-        },
-        {
-            key_1: v4(),
-            key_2: v4(),
-            key_3: v4(),
-        },
-    ];
+
     const mocks = {};
 
-    before(() => {
-        fs.writeFileSync(`./data/${credential_test_file_name}`, yaml.stringify(credential_test_file_data, 4));
-        credential_repository = CredentialRepository.getInstance();
-        mocks.credential_repository = mock(credential_repository);
-    });
-
-    after(() => {
-        fs.unlinkSync(`./data/${credential_test_file_name}`);
-    });
-
-    beforeEach(() => {
-        mocks.credential_repository = mock(credential_repository);
-    });
-
-    afterEach(() => {
-        mocks.credential_repository.restore();
+    before(async () => {
+        await cleanDataFolder();
+        await copyTestCredentialData();
+        await copyProjectFolderData();
     });
 
     it('getGitCredentialFileName', () => {
@@ -67,12 +36,19 @@ describe('CredentialRepository unit test', () => {
     });
 
     it.only('getCredentials', async () => {
-        mocks.credential_repository.expects('getGitCredentialFileName')
-            .once()
-            .returns(credential_test_file_name);
-
         const data = await credential_repository.getCredentials();
-        expect(data).to.deep.equal(credential_test_file_data);
+        expect(data).to.deep.equal([
+            {
+                id: 'credential_id_1',
+                name: 'crendial_name_1',
+                private_id_rsa_file: './files/credential_id_1',
+            },
+            {
+                id: 'credential_id_2',
+                name: 'crendial_name_2',
+                private_id_rsa_file: './files/credential_id_1',
+            },
+        ]);
     });
 
     it('saveCredentials', async () => {
