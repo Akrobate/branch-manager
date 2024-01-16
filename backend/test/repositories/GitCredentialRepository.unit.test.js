@@ -18,12 +18,9 @@ const {
     CredentialRepository,
 } = require('../../src/repositories');
 
-describe.only('CredentialRepository unit test', () => {
+describe('CredentialRepository unit test', () => {
 
     const credential_repository = CredentialRepository.getInstance();
-    const credential_test_file_name = 'credentials_test.yaml';
-
-    const mocks = {};
 
     before(async () => {
         await cleanDataFolder();
@@ -35,7 +32,7 @@ describe.only('CredentialRepository unit test', () => {
         expect(credential_repository.getGitCredentialFileName()).to.equal('credentials.yml');
     });
 
-    it.only('getCredentials', async () => {
+    it('getCredentials', async () => {
         const data = await credential_repository.getCredentials();
         expect(data).to.deep.equal([
             {
@@ -52,13 +49,14 @@ describe.only('CredentialRepository unit test', () => {
     });
 
     it('saveCredentials', async () => {
-        credential_test_file_data[0].key_1 = 'Updated_property';
-        mocks.credential_repository.expects('getGitCredentialFileName')
-            .twice()
-            .returns(credential_test_file_name);
+
+        const credential_test_file_data = await credential_repository.getCredentials();
+        expect(credential_test_file_data[0].id).to.equal('credential_id_1');
+
+        credential_test_file_data[0].id = 'credential_id_1_updated';
         await credential_repository.saveCredentials(credential_test_file_data);
         const data = await credential_repository.getCredentials();
-        expect(data).to.deep.equal(credential_test_file_data);
+        expect(data[0].id).to.deep.equal('credential_id_1_updated');
     });
 });
 
