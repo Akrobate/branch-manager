@@ -1,16 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-
-const yaml = require('yamljs');
-
 const {
     expect,
 } = require('chai');
-
-const {
-    mock,
-} = require('sinon');
 
 const {
     v4,
@@ -20,39 +12,36 @@ const {
     ProjectRepository,
 } = require('../../src/repositories');
 
+const {
+    copyTestCredentialData,
+    cleanDataFolder,
+    copyProjectFolderData,
+} = require('../test_helpers/test_helpers');
+
 describe('ProjectRepository unit test', () => {
 
-    let project_repository = null;
-    const test_project_id = `test_${v4()}`;
-    const project_test_file_name = 'project.yml';
+    const project_repository = ProjectRepository.getInstance();
+    const test_project_id = 'test_project_id';
+
     const project_test_file_data = {
         id: test_project_id,
         name: v4(),
         branch_flow: [],
         repository_list: [],
     };
-    const mocks = {};
 
-    before(() => {
-        fs.mkdirSync(`./data/projects/${test_project_id}`);
-        fs.writeFileSync(`./data/projects/${test_project_id}/${project_test_file_name}`, yaml.stringify(project_test_file_data, 4));
-
-        project_repository = ProjectRepository
-            .getInstance();
-        mocks.project_repository = mock(project_repository);
+    before(async () => {
+        await cleanDataFolder();
+        await copyTestCredentialData();
+        await copyProjectFolderData();
     });
 
-    after(() => {
-        fs.unlinkSync(`./data/projects/${test_project_id}/${project_test_file_name}`);
-        fs.rmdirSync(`./data/projects/${test_project_id}`);
-        mocks.project_repository.restore();
-    });
 
-    it('getProject', async () => {
+    it.only('getProject', async () => {
         const result = await project_repository.getProject(test_project_id);
         expect(result).to.be.an('Object');
-        expect(result).to.have.property('id', project_test_file_data.id);
-        expect(result).to.have.property('name', project_test_file_data.name);
+        expect(result).to.have.property('id', 'test_project_id');
+        expect(result).to.have.property('name', 'Test project');
         expect(result).to.have.property('branch_flow');
         expect(result.branch_flow).to.be.an('Array');
         expect(result.repository_list).to.be.an('Array');
