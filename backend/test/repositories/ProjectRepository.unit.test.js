@@ -23,13 +23,6 @@ describe('ProjectRepository unit test', () => {
     const project_repository = ProjectRepository.getInstance();
     const test_project_id = 'test_project_id';
 
-    const project_test_file_data = {
-        id: test_project_id,
-        name: v4(),
-        branch_flow: [],
-        repository_list: [],
-    };
-
     before(async () => {
         await cleanDataFolder();
         await copyTestCredentialData();
@@ -37,7 +30,7 @@ describe('ProjectRepository unit test', () => {
     });
 
 
-    it.only('getProject', async () => {
+    it('getProject', async () => {
         const result = await project_repository.getProject(test_project_id);
         expect(result).to.be.an('Object');
         expect(result).to.have.property('id', 'test_project_id');
@@ -52,10 +45,10 @@ describe('ProjectRepository unit test', () => {
         const result = await project_repository.getAllProjects();
         expect(result).to.be.an('Array');
         expect(result.length).to.be.gt(0);
-        const found_result = result.find((item) => item.id === project_test_file_data.id);
+        const found_result = result.find((item) => item.id === 'test_project_id');
         expect(found_result).to.be.an('Object');
-        expect(found_result).to.have.property('id', project_test_file_data.id);
-        expect(found_result).to.have.property('name', project_test_file_data.name);
+        expect(found_result).to.have.property('id', 'test_project_id');
+        expect(found_result).to.have.property('name', 'Test project');
         expect(found_result).to.have.property('branch_flow');
         expect(found_result.branch_flow).to.be.an('Array');
         expect(found_result.repository_list).to.be.an('Array');
@@ -68,7 +61,7 @@ describe('ProjectRepository unit test', () => {
     });
 
 
-    it('updateProject', async () => {
+    it.only('updateProject', async () => {
         await project_repository.updateProject(
             test_project_id,
             {
