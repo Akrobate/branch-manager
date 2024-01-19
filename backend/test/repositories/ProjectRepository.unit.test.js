@@ -5,10 +5,6 @@ const {
 } = require('chai');
 
 const {
-    v4,
-} = require('uuid');
-
-const {
     ProjectRepository,
 } = require('../../src/repositories');
 
@@ -61,7 +57,7 @@ describe('ProjectRepository unit test', () => {
     });
 
 
-    it.only('updateProject', async () => {
+    it('updateProject', async () => {
         await project_repository.updateProject(
             test_project_id,
             {
