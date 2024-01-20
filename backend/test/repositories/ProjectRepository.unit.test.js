@@ -64,6 +64,11 @@ describe('ProjectRepository unit test', () => {
                 name: 'New project name',
             }
         );
+
+        const result = await project_repository.getProject(test_project_id);
+        expect(result).to.be.an('Object');
+        expect(result).to.have.property('id', 'test_project_id');
+        expect(result).to.have.property('name', 'New project name');
     });
 
 });
