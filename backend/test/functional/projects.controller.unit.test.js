@@ -1,9 +1,6 @@
 'use strict';
 
 const supertest = require('supertest');
-const {
-    mock,
-} = require('sinon');
 
 const {
     expect,
@@ -14,28 +11,21 @@ const {
 } = require('../../src/app');
 
 const {
-    FileSystemRepository,
-} = require('../../src/repositories');
+    copyTestCredentialData,
+    cleanDataFolder,
+    copyProjectFolderData,
+} = require('../test_helpers/test_helpers');
 
-const seeds_data_dir = `${__dirname}/../seeds/data/`;
+describe.only('Projects controller', () => {
 
-const mocks = {};
-
-describe('Projects controller', () => {
-
-    beforeEach(() => {
-        mocks.file_system_repository = mock(FileSystemRepository.getInstance());
+    beforeEach(async () => {
+        await cleanDataFolder();
+        await copyTestCredentialData();
+        await copyProjectFolderData();
     });
 
-    afterEach(() => {
-        mocks.file_system_repository.restore();
-    });
 
     it('Should be able to list all projects', (done) => {
-        mocks.file_system_repository
-            .expects('getDataDir')
-            .atLeast(1)
-            .returns(seeds_data_dir);
 
         supertest(app)
             .get('/projects')
@@ -55,7 +45,6 @@ describe('Projects controller', () => {
                     expect(first_result).to.have.property('repository_list');
                     expect(first_result.branch_flow).to.be.an('Array');
                     expect(first_result.repository_list).to.be.an('Array');
-                    mocks.file_system_repository.verify();
                 } catch (err) {
                     return done(err);
                 }
@@ -64,10 +53,6 @@ describe('Projects controller', () => {
     });
 
     it('Should be able get a project by project id', (done) => {
-        mocks.file_system_repository
-            .expects('getDataDir')
-            .atLeast(1)
-            .returns(seeds_data_dir);
 
         const project_id = 'test_project_id';
         supertest(app)
@@ -87,7 +72,6 @@ describe('Projects controller', () => {
                     expect(body).to.have.property('repository_list');
                     expect(body.branch_flow).to.be.an('Array');
                     expect(body.repository_list).to.be.an('Array');
-                    mocks.file_system_repository.verify();
                 } catch (err) {
                     return done(err);
                 }
