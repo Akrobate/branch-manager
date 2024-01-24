@@ -20,6 +20,7 @@ const {
     CredentialService,
 } = require('../../src/services');
 
+
 describe('CredentialService unit test', () => {
 
     let credential_service = null;

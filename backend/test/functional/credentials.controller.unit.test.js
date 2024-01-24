@@ -1,9 +1,6 @@
 'use strict';
 
 const supertest = require('supertest');
-const {
-    mock,
-} = require('sinon');
 
 const {
     expect,
@@ -14,18 +11,12 @@ const {
 } = require('../../src/app');
 
 const {
-    FileSystemRepository,
-} = require('../../src/repositories');
-
-const {
     copyTestCredentialData,
     cleanDataFolder,
     copyProjectFolderData,
 } = require('../test_helpers/test_helpers');
 
 const mocks = {};
-
-const file_system_repository = FileSystemRepository.getInstance();
 
 describe('Credentials controller', () => {
 
@@ -35,13 +26,6 @@ describe('Credentials controller', () => {
         await copyProjectFolderData();
     });
 
-    beforeEach(() => {
-        mocks.file_system_repository = mock(file_system_repository);
-    });
-
-    afterEach(() => {
-        mocks.file_system_repository.restore();
-    });
 
     it('Should be able to list all credentials', (done) => {
 
