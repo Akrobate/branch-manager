@@ -21,3 +21,4 @@ services:
         VITE_API_URL: ${BACKEND_API_HOST}:${BACKEND_API_PORT}
     ports:
       - ${FRONTEND_PORT}:80
+
