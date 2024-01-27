@@ -1,5 +1,5 @@
 // @Todo move to env vars
 
 export default {
-    url: 'http://localhost:3000',
+    url: process.env.VUE_APP_API_HOST,
 }
