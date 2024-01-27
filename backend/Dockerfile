@@ -1,4 +1,4 @@
-FROM node:stretch-slim
+FROM node:18
 
 RUN apt-get update
 RUN apt-get install git
