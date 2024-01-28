@@ -18,7 +18,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: ${BACKEND_API_HOST}:${BACKEND_API_PORT}
+        VUE_APP_API_HOST: ${BACKEND_API_HOST}:${BACKEND_API_PORT}
     ports:
       - ${FRONTEND_PORT}:80
 
